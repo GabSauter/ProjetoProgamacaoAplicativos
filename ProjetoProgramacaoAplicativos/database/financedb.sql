@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Tempo de geração: 31/05/2023 às 23:43
+-- Host: 127.0.0.1:3307
+-- Tempo de geração: 04/06/2023 às 21:57
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -39,6 +39,7 @@ CREATE TABLE `categoria` (
 --
 
 CREATE TABLE `despesas` (
+  `id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
   `despesa` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
@@ -53,6 +54,7 @@ CREATE TABLE `despesas` (
 --
 
 CREATE TABLE `fundo` (
+  `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
   `ocasional` double NOT NULL,
@@ -66,6 +68,7 @@ CREATE TABLE `fundo` (
 --
 
 CREATE TABLE `investimentos` (
+  `id` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
   `ocasional` double NOT NULL,
@@ -79,6 +82,7 @@ CREATE TABLE `investimentos` (
 --
 
 CREATE TABLE `rendimento` (
+  `id` int(11) NOT NULL,
   `categoria_id` int(11) NOT NULL,
   `rendimento` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
@@ -100,12 +104,26 @@ ALTER TABLE `categoria`
 -- Índices de tabela `despesas`
 --
 ALTER TABLE `despesas`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `despesas_ibfk_1` (`categoria_id`);
+
+--
+-- Índices de tabela `fundo`
+--
+ALTER TABLE `fundo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `investimentos`
+--
+ALTER TABLE `investimentos`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Índices de tabela `rendimento`
 --
 ALTER TABLE `rendimento`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `rendimento_ibfk_1` (`categoria_id`);
 
 --
@@ -116,7 +134,31 @@ ALTER TABLE `rendimento`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de tabela `despesas`
+--
+ALTER TABLE `despesas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `fundo`
+--
+ALTER TABLE `fundo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `investimentos`
+--
+ALTER TABLE `investimentos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `rendimento`
+--
+ALTER TABLE `rendimento`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restrições para tabelas despejadas
