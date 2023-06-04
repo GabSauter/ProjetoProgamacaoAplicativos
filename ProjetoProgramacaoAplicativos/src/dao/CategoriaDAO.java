@@ -88,6 +88,7 @@ public class CategoriaDAO {
 				
 				Categoria categoria = new Categoria();
 				categoria.setNome(rs.getString("nome"));
+				categoria.setId(rs.getInt("id"));
 				
 				listaCategorias.add(categoria);
 			}
