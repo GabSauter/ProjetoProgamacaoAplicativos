@@ -23,8 +23,10 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
-public class  RendimentoWindow{
+public class  DespesasWindow{
 
     private JFrame frame;
     private JTable table;
@@ -35,7 +37,7 @@ public class  RendimentoWindow{
 	 * Launch the application.
 	 */
 	  public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
-	  RendimentoWindow window = new RendimentoWindow();
+	  DespesasWindow window = new DespesasWindow();
 	  window.frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
 	  }); }
 	 
@@ -43,7 +45,7 @@ public class  RendimentoWindow{
  * Create the frame.
  * @wbp.parser.entryPoint
  */
-    public RendimentoWindow() {
+    public DespesasWindow() {
         initialize();
     }
 
@@ -54,7 +56,7 @@ public class  RendimentoWindow{
         frame.getContentPane().setLayout(null);
         
         JPanel panelCadastro = new JPanel();
-        panelCadastro.setBorder(new TitledBorder(null, "Cadastrar Rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelCadastro.setLayout(null);
         panelCadastro.setBounds(10, 12, 548, 170);
         frame.getContentPane().add(panelCadastro);
@@ -120,7 +122,7 @@ public class  RendimentoWindow{
                 panelTipoRendimento.add(rdbtnMensal);
 
         JPanel panelRendimento = new JPanel();
-        panelRendimento.setBorder(new TitledBorder(null, "Rendimentos cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelRendimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelRendimento.setBounds(10, 188, 548, 197);
         frame.getContentPane().add(panelRendimento);
         panelRendimento.setLayout(null);
@@ -142,7 +144,7 @@ public class  RendimentoWindow{
                             new Object[][] {
                             },
                             new String[] {
-                                "Categoria", "Rendimento","Mensal", "Ocasional", "Ano"
+                                "Categoria", "Despesa", "Mensal", "Ocasional", "Total Anual"
                             }
                         ));
                         scrollPane.setViewportView(table);
