@@ -44,4 +44,9 @@ public class Rendimento {
 	public void setTotalAno(double totalAno) {
 		this.totalAno = totalAno;
 	}
+	@Override
+	public String toString() {
+		return "Rendimento [id=" + id + ", categoria=" + categoria + ", rendimento= " + rendimento + ", mensal=" + mensal
+				+ ", ocasional=" + ocasional + ", totalAno=" + totalAno + "]";
+	}
 }

@@ -3,6 +3,7 @@ package service;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import dao.Database;
 import dao.RendimentoDAO;
@@ -23,5 +24,10 @@ public class RendimentoService {
 	public int excluir(Rendimento rendimento) throws SQLException, IOException {
 		Connection conn = Database.conectar();
 		return new RendimentoDAO(conn).excluir(rendimento);
+	}
+	
+	public List<Rendimento> buscarTodos() throws SQLException, IOException {
+		Connection conn = Database.conectar();
+		return new RendimentoDAO(conn).buscarTodos();
 	}
 }
