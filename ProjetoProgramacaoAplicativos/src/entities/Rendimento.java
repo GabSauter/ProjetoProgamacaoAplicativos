@@ -1,12 +1,19 @@
 package entities;
 
 public class Rendimento {
+	private int id;
 	private Categoria categoria;
 	private String rendimento;
 	private double mensal;
 	private double ocasional;
 	private double totalAno;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Categoria getCategoria() {
 		return categoria;
 	}

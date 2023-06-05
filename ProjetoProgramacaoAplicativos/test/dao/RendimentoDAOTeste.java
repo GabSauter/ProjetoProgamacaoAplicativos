@@ -12,8 +12,8 @@ public class RendimentoDAOTeste {
 	public static void cadastrarRendimentoTeste() throws SQLException, IOException {
 		
 		Categoria categoria = new Categoria();
-		categoria.setId(2);
-		categoria.setNome("Salário");
+		categoria.setId(4);
+		categoria.setNome("Venda");
 		
 		Rendimento rendimento = new Rendimento();
 		rendimento.setCategoria(categoria);
@@ -29,12 +29,46 @@ public class RendimentoDAOTeste {
 		new RendimentoService().cadastrar(rendimento);
 		System.out.println("Cadastro de rendimento feito com sucesso.");
 	}
+	
+	public static void atualizarRendimentoTeste() throws SQLException, IOException {
+		Categoria categoria = new Categoria();
+		categoria.setId(4);
+		categoria.setNome("Venda");
+		
+		Rendimento rendimento = new Rendimento();
+		rendimento.setId(3);
+		rendimento.setCategoria(categoria);
+		rendimento.setRendimento("Salário Mensal");
+		rendimento.setMensal(50000.00);
+		rendimento.setOcasional(0.00);
+		
+		if(rendimento.getMensal() == 0.00)
+			rendimento.setTotalAno(rendimento.getOcasional());
+		else if(rendimento.getOcasional() == 0.00)
+			rendimento.setTotalAno(rendimento.getMensal() * 12);
+		
+		new RendimentoService().atualizar(rendimento);
+		System.out.println("Atualização de rendimento feito com sucesso.");
+	}
+	
+	public static void excluirRendimentoTeste() throws SQLException, IOException {
+		
+		Rendimento rendimento = new Rendimento();
+		rendimento.setId(3);
+		
+		int linhasManipuladas = new RendimentoService().excluir(rendimento);
+		if(linhasManipuladas == 0)
+			System.out.println("Nenhum rendimento encontrado para exclusão");
+		else
+			System.out.println("Exclusão de rendimento feito com sucesso.");
+	}
 
 	public static void main(String[] args) {
 		
 		try {
-			
-			cadastrarRendimentoTeste();
+			//cadastrarRendimentoTeste();
+			//atualizarRendimentoTeste();
+			excluirRendimentoTeste();
 			
 		} catch (SQLException | IOException e) {
 			System.out.println(e.getMessage());
