@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
-public class  DespesasWindow{
+public class  FundoOcasionalWindow{
 
     private JFrame frame;
     private JTable table;
@@ -36,14 +36,11 @@ public class  DespesasWindow{
     private JLabel lblDespesa;
     private JButton btnCadastrarRendimento;
     private JButton btnLimparCampos;
-    private JLabel lblCategoria;
-    private JComboBox<String> cbCategoria;
-    private JButton btnAddCategoria;
     private JLabel lblValor;
     private JPanel panelTipoRendimento;
     private JRadioButton rdbtnOcasional;
     private JRadioButton rdbtnMensal;
-    private JPanel panelDespesas;
+    private JPanel panelFundos;
     private JButton btnEditarRendimento;
     private JButton btnExcluirRendimento;
     private JScrollPane scrollPane;
@@ -53,7 +50,7 @@ public class  DespesasWindow{
 	 * Launch the application.
 	 */
 	  public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
-	  DespesasWindow window = new DespesasWindow();
+	  FundoOcasionalWindow window = new FundoOcasionalWindow();
 	  window.frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
 	  }); }
 	 
@@ -61,71 +58,53 @@ public class  DespesasWindow{
  * Create the frame.
  * @wbp.parser.entryPoint
  */
-    public DespesasWindow() {
+    public FundoOcasionalWindow() {
         initComponents();
     }
 
     private void initComponents() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 570, 433);
+        frame.setBounds(100, 100, 570, 390);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
         panelCadastro = new JPanel();
-        panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+        panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  fundo de despesas ocasionais", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelCadastro.setLayout(null);
-        panelCadastro.setBounds(10, 12, 548, 170);
+        panelCadastro.setBounds(10, 12, 548, 145);
         frame.getContentPane().add(panelCadastro);
         
         lblDespesa = new JLabel("Despesa:");
-        lblDespesa.setBounds(12, 53, 99, 14);
+        lblDespesa.setBounds(12, 28, 99, 14);
         panelCadastro.add(lblDespesa);
         
         txtRendimento = new JTextField();
         txtRendimento.setColumns(10);
-        txtRendimento.setBounds(109, 51, 150, 20);
+        txtRendimento.setBounds(109, 26, 150, 20);
         panelCadastro.add(txtRendimento);
         
         btnCadastrarRendimento = new JButton("Cadastrar");
-        btnCadastrarRendimento.setBounds(269, 135, 105, 23);
+        btnCadastrarRendimento.setBounds(269, 110, 105, 23);
         panelCadastro.add(btnCadastrarRendimento);
         
         btnLimparCampos = new JButton("Limpar campos");
-        btnLimparCampos.setBounds(386, 135, 150, 23);
+        btnLimparCampos.setBounds(386, 110, 150, 23);
         panelCadastro.add(btnLimparCampos);
         
-        lblCategoria = new JLabel("Categoria");
-        lblCategoria.setBounds(12, 26, 87, 15);
-        panelCadastro.add(lblCategoria);
-        
-        cbCategoria = new JComboBox<String>();
-        cbCategoria.setBounds(109, 21, 150, 20);
-        panelCadastro.add(cbCategoria);
-        
-        btnAddCategoria = new JButton("✎");
-        btnAddCategoria.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnAddCategoriaAction();
-        	}
-        });
-        btnAddCategoria.setFont(new Font("Dialog", Font.BOLD, 12));
-        btnAddCategoria.setBounds(269, 21, 44, 20);
-        panelCadastro.add(btnAddCategoria);
-        
         lblValor = new JLabel("Valor:");
-        lblValor.setBounds(12, 79, 70, 15);
+        lblValor.setBounds(12, 54, 70, 15);
         panelCadastro.add(lblValor);
         
         
         txtValor = new JTextField();
         txtValor.setColumns(10);
-        txtValor.setBounds(109, 77, 150, 20);
+        txtValor.setBounds(109, 52, 150, 20);
         panelCadastro.add(txtValor);
         
         panelTipoRendimento = new JPanel();
         
                 panelTipoRendimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-                panelTipoRendimento.setBounds(12, 108, 247, 50);
+                panelTipoRendimento.setBounds(12, 83, 247, 50);
                 panelCadastro.add(panelTipoRendimento);
                 panelTipoRendimento.setLayout(null);
                 
@@ -136,41 +115,37 @@ public class  DespesasWindow{
                 rdbtnMensal = new JRadioButton("Mensal");
                 rdbtnMensal.setBounds(136, 19, 89, 23);
                 panelTipoRendimento.add(rdbtnMensal);
+        
+        separator = new JSeparator();
+        separator.setBounds(10, 165, 548, 2);
+        frame.getContentPane().add(separator);
 
-        panelDespesas = new JPanel();
-        panelDespesas.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
-        panelDespesas.setBounds(10, 188, 548, 197);
-        frame.getContentPane().add(panelDespesas);
-        panelDespesas.setLayout(null);
+        panelFundos = new JPanel();
+        panelFundos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fundos Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+        panelFundos.setBounds(10, 169, 548, 186);
+        frame.getContentPane().add(panelFundos);
+        panelFundos.setLayout(null);
 
         btnEditarRendimento = new JButton("Editar");
         btnEditarRendimento.setBounds(333, 162, 100, 23);
-        panelDespesas.add(btnEditarRendimento);
+        panelFundos.add(btnEditarRendimento);
 
         btnExcluirRendimento = new JButton("Excluir");
         btnExcluirRendimento.setBounds(438, 162, 100, 23);
-        panelDespesas.add(btnExcluirRendimento);
+        panelFundos.add(btnExcluirRendimento);
         
                 scrollPane = new JScrollPane();
                 scrollPane.setBounds(12, 14, 526, 136);
-                panelDespesas.add(scrollPane);
+                panelFundos.add(scrollPane);
                 
                         table = new JTable();
                         table.setModel(new DefaultTableModel(
                             new Object[][] {
                             },
                             new String[] {
-                                "Categoria", "Despesa", "Mensal", "Ocasional", "Total Anual"
+                                "Fundo Ocasional", "Mensal", "Ocasional", "Total Anual"
                             }
                         ));
                         scrollPane.setViewportView(table);
-        
-        separator = new JSeparator();
-        separator.setBounds(10, 202, 487, 9);
-        frame.getContentPane().add(separator);
     }
-
-	protected void btnAddCategoriaAction() {
-			new CategoriaWindow().setVisible(true);
-	}
 }
