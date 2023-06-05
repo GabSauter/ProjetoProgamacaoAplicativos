@@ -32,6 +32,22 @@ public class  DespesasWindow{
     private JTable table;
     private JTextField txtRendimento;
     private JTextField txtValor;
+    private JPanel panelCadastro;
+    private JLabel lblDespesa;
+    private JButton btnCadastrarRendimento;
+    private JButton btnLimparCampos;
+    private JLabel lblCategoria;
+    private JComboBox<String> cbCategoria;
+    private JButton btnAddCategoria;
+    private JLabel lblValor;
+    private JPanel panelTipoRendimento;
+    private JRadioButton rdbtnOcasional;
+    private JRadioButton rdbtnMensal;
+    private JPanel panelRendimento;
+    private JButton btnEditarRendimento;
+    private JButton btnExcluirRendimento;
+    private JScrollPane scrollPane;
+    private JSeparator separator;
 
 	/**
 	 * Launch the application.
@@ -46,22 +62,22 @@ public class  DespesasWindow{
  * @wbp.parser.entryPoint
  */
     public DespesasWindow() {
-        initialize();
+        initComponents();
     }
 
-    private void initialize() {
+    private void initComponents() {
         frame = new JFrame();
         frame.setBounds(100, 100, 570, 433);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
-        JPanel panelCadastro = new JPanel();
+        panelCadastro = new JPanel();
         panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelCadastro.setLayout(null);
         panelCadastro.setBounds(10, 12, 548, 170);
         frame.getContentPane().add(panelCadastro);
         
-        JLabel lblDespesa = new JLabel("Despesa:");
+        lblDespesa = new JLabel("Despesa:");
         lblDespesa.setBounds(12, 53, 99, 14);
         panelCadastro.add(lblDespesa);
         
@@ -70,23 +86,23 @@ public class  DespesasWindow{
         txtRendimento.setBounds(109, 51, 150, 20);
         panelCadastro.add(txtRendimento);
         
-        JButton btnCadastrarRendimento = new JButton("Cadastrar");
+        btnCadastrarRendimento = new JButton("Cadastrar");
         btnCadastrarRendimento.setBounds(269, 135, 105, 23);
         panelCadastro.add(btnCadastrarRendimento);
         
-        JButton btnLimparCampos = new JButton("Limpar campos");
+        btnLimparCampos = new JButton("Limpar campos");
         btnLimparCampos.setBounds(386, 135, 150, 23);
         panelCadastro.add(btnLimparCampos);
         
-        JLabel lblCategoria = new JLabel("Categoria");
+        lblCategoria = new JLabel("Categoria");
         lblCategoria.setBounds(12, 26, 87, 15);
         panelCadastro.add(lblCategoria);
         
-        JComboBox<String> cbCategoria = new JComboBox<String>();
+        cbCategoria = new JComboBox<String>();
         cbCategoria.setBounds(109, 21, 150, 20);
         panelCadastro.add(cbCategoria);
         
-        JButton btnAddCategoria = new JButton("✎");
+        btnAddCategoria = new JButton("✎");
         btnAddCategoria.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnAddCategoriaAction();
@@ -96,7 +112,7 @@ public class  DespesasWindow{
         btnAddCategoria.setBounds(269, 21, 44, 20);
         panelCadastro.add(btnAddCategoria);
         
-        JLabel lblValor = new JLabel("Valor:");
+        lblValor = new JLabel("Valor:");
         lblValor.setBounds(12, 79, 70, 15);
         panelCadastro.add(lblValor);
         
@@ -106,36 +122,36 @@ public class  DespesasWindow{
         txtValor.setBounds(109, 77, 150, 20);
         panelCadastro.add(txtValor);
         
-        JPanel panelTipoRendimento = new JPanel();
+        panelTipoRendimento = new JPanel();
         
                 panelTipoRendimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
                 panelTipoRendimento.setBounds(12, 108, 247, 50);
                 panelCadastro.add(panelTipoRendimento);
                 panelTipoRendimento.setLayout(null);
                 
-                JRadioButton rdbtnOcasional = new JRadioButton("Ocasional");
+                rdbtnOcasional = new JRadioButton("Ocasional");
                 rdbtnOcasional.setBounds(8, 19, 95, 23);
                 panelTipoRendimento.add(rdbtnOcasional);
                 
-                JRadioButton rdbtnMensal = new JRadioButton("Mensal");
+                rdbtnMensal = new JRadioButton("Mensal");
                 rdbtnMensal.setBounds(136, 19, 89, 23);
                 panelTipoRendimento.add(rdbtnMensal);
 
-        JPanel panelRendimento = new JPanel();
+        panelRendimento = new JPanel();
         panelRendimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelRendimento.setBounds(10, 188, 548, 197);
         frame.getContentPane().add(panelRendimento);
         panelRendimento.setLayout(null);
 
-        JButton btnEditarRendimento = new JButton("Editar");
+        btnEditarRendimento = new JButton("Editar");
         btnEditarRendimento.setBounds(333, 162, 100, 23);
         panelRendimento.add(btnEditarRendimento);
 
-        JButton btnExcluirRendimento = new JButton("Excluir");
+        btnExcluirRendimento = new JButton("Excluir");
         btnExcluirRendimento.setBounds(438, 162, 100, 23);
         panelRendimento.add(btnExcluirRendimento);
         
-                JScrollPane scrollPane = new JScrollPane();
+                scrollPane = new JScrollPane();
                 scrollPane.setBounds(12, 14, 526, 136);
                 panelRendimento.add(scrollPane);
                 
@@ -149,7 +165,7 @@ public class  DespesasWindow{
                         ));
                         scrollPane.setViewportView(table);
         
-        JSeparator separator = new JSeparator();
+        separator = new JSeparator();
         separator.setBounds(10, 202, 487, 9);
         frame.getContentPane().add(separator);
     }
