@@ -2,6 +2,7 @@ package entities;
 
 public class Categoria {
 	
+	private int id;
 	private String nome;
 
 	public String getNome() {
@@ -12,8 +13,17 @@ public class Categoria {
 		this.nome = nome;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
-		return nome;
+		return id + " " + nome;
 	}
+
 }
