@@ -61,9 +61,9 @@ public class  DespesasWindow{
         panelCadastro.setBounds(10, 12, 548, 170);
         frame.getContentPane().add(panelCadastro);
         
-        JLabel lblRendimento = new JLabel("Rendimento:");
-        lblRendimento.setBounds(12, 53, 99, 14);
-        panelCadastro.add(lblRendimento);
+        JLabel lblDespesa = new JLabel("Despesa:");
+        lblDespesa.setBounds(12, 53, 99, 14);
+        panelCadastro.add(lblDespesa);
         
         txtRendimento = new JTextField();
         txtRendimento.setColumns(10);
@@ -108,7 +108,7 @@ public class  DespesasWindow{
         
         JPanel panelTipoRendimento = new JPanel();
         
-                panelTipoRendimento.setBorder(new TitledBorder(null, "Tipo de rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+                panelTipoRendimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
                 panelTipoRendimento.setBounds(12, 108, 247, 50);
                 panelCadastro.add(panelTipoRendimento);
                 panelTipoRendimento.setLayout(null);
