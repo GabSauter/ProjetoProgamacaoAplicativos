@@ -30,7 +30,6 @@ public class  RendimentoWindow{
     private JTable table;
     private JTextField txtRendimento;
     private JTextField txtValor;
-    private JSeparator separator;
     private JScrollPane scrollPane;
     private JButton btnExcluirRendimento;
     private JButton btnEditarRendimento;
@@ -60,7 +59,7 @@ public class  RendimentoWindow{
  * @wbp.parser.entryPoint
  */
     public RendimentoWindow() {
-        initComponents();
+        this.initComponents();
     }
 
     private void initComponents() {
@@ -162,13 +161,9 @@ public class  RendimentoWindow{
                             }
                         ));
                         scrollPane.setViewportView(table);
-        
-        separator = new JSeparator();
-        separator.setBounds(10, 202, 487, 9);
-        frame.getContentPane().add(separator);
     }
 
-	protected void btnAddCategoriaAction() {
+	private void btnAddCategoriaAction() {
 			new CategoriaWindow().setVisible(true);
 	}
 }

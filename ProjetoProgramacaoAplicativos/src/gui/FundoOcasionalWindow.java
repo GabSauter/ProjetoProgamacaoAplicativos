@@ -44,7 +44,6 @@ public class  FundoOcasionalWindow{
     private JButton btnEditarRendimento;
     private JButton btnExcluirRendimento;
     private JScrollPane scrollPane;
-    private JSeparator separator;
 
 	/**
 	 * Launch the application.
@@ -59,7 +58,7 @@ public class  FundoOcasionalWindow{
  * @wbp.parser.entryPoint
  */
     public FundoOcasionalWindow() {
-        initComponents();
+        this.initComponents();
     }
 
     private void initComponents() {
@@ -115,10 +114,6 @@ public class  FundoOcasionalWindow{
                 rdbtnMensal = new JRadioButton("Mensal");
                 rdbtnMensal.setBounds(136, 19, 89, 23);
                 panelTipoRendimento.add(rdbtnMensal);
-        
-        separator = new JSeparator();
-        separator.setBounds(10, 165, 548, 2);
-        frame.getContentPane().add(separator);
 
         panelFundos = new JPanel();
         panelFundos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fundos Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));

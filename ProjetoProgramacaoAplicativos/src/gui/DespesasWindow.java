@@ -47,7 +47,6 @@ public class  DespesasWindow{
     private JButton btnEditarRendimento;
     private JButton btnExcluirRendimento;
     private JScrollPane scrollPane;
-    private JSeparator separator;
 
 	/**
 	 * Launch the application.
@@ -62,7 +61,7 @@ public class  DespesasWindow{
  * @wbp.parser.entryPoint
  */
     public DespesasWindow() {
-        initComponents();
+        this.initComponents();
     }
 
     private void initComponents() {
@@ -164,13 +163,9 @@ public class  DespesasWindow{
                             }
                         ));
                         scrollPane.setViewportView(table);
-        
-        separator = new JSeparator();
-        separator.setBounds(10, 202, 487, 9);
-        frame.getContentPane().add(separator);
     }
 
-	protected void btnAddCategoriaAction() {
+	private void btnAddCategoriaAction() {
 			new CategoriaWindow().setVisible(true);
 	}
 }
