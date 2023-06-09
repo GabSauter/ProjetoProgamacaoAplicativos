@@ -157,7 +157,7 @@ public class  RendimentoWindow{
                             new Object[][] {
                             },
                             new String[] {
-                                "Categoria", "Rendimento","Mensal", "Ocasional", "Ano"
+                                "Categoria", "Rendimento","Mensal", "Ocasional", "Total Anual"
                             }
                         ));
                         scrollPane.setViewportView(table);

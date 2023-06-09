@@ -39,7 +39,7 @@ public class HomePageWindow {
      */
     private void initialize() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 414, 467);
+        frame.setBounds(100, 100, 420, 470);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
 
@@ -48,28 +48,28 @@ public class HomePageWindow {
         lblTitle.setBounds(149, 27, 152, 20);
         frame.getContentPane().add(lblTitle);
 
-        JButton btnRendimentos = new JButton("Módulo de Rendimentos");
-        btnRendimentos.setBounds(60, 149, 286, 30);
+        JButton btnRendimentos = new JButton("Rendimentos");
+        btnRendimentos.setBounds(60, 207, 286, 30);
         frame.getContentPane().add(btnRendimentos);
 
-        JButton btnDespesas = new JButton("Módulo de Despesas");
+        JButton btnDespesas = new JButton("Despesas");
         btnDespesas.setBounds(60, 261, 286, 30);
         frame.getContentPane().add(btnDespesas);
 
-        JButton btnInvestimentos = new JButton("Módulo de Investimentos a Longo Prazo");
+        JButton btnInvestimentos = new JButton("Investimentos a Longo Prazo");
         btnInvestimentos.setBounds(60, 314, 286, 30);
         frame.getContentPane().add(btnInvestimentos);
 
-        JButton btnFundoDespesas = new JButton("Módulo Fundo de Despesas Ocasionais");
+        JButton btnFundoDespesas = new JButton("Fundo de Despesas Ocasionais");
         btnFundoDespesas.setBounds(60, 365, 286, 30);
         frame.getContentPane().add(btnFundoDespesas);
 
-        JButton btnResumo = new JButton("Módulo Resumo");
+        JButton btnResumo = new JButton("Resumo");
         btnResumo.setBounds(60, 92, 286, 30);
         frame.getContentPane().add(btnResumo);
 
-        JButton btnRelatorio = new JButton("Módulo Relatório");
-        btnRelatorio.setBounds(60, 207, 286, 30);
+        JButton btnRelatorio = new JButton("Relatório");
+        btnRelatorio.setBounds(60, 149, 286, 30);
         frame.getContentPane().add(btnRelatorio);
     }
 }
