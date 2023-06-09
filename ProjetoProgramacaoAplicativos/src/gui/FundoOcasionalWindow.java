@@ -23,34 +23,33 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
 
-public class  RendimentoWindow{
+public class  FundoOcasionalWindow{
 
     private JFrame frame;
     private JTable table;
     private JTextField txtRendimento;
     private JTextField txtValor;
-    private JScrollPane scrollPane;
-    private JButton btnExcluirRendimento;
-    private JButton btnEditarRendimento;
-    private JPanel panelRendimento;
     private JPanel panelCadastro;
-    private JLabel lblRendimento;
+    private JLabel lblDespesa;
     private JButton btnCadastrarRendimento;
     private JButton btnLimparCampos;
-    private JLabel lblCategoria;
-    private JComboBox<String> cbCategoria;
-    private JButton btnAddCategoria;
     private JLabel lblValor;
     private JPanel panelTipoRendimento;
     private JRadioButton rdbtnOcasional;
     private JRadioButton rdbtnMensal;
+    private JPanel panelFundos;
+    private JButton btnEditarRendimento;
+    private JButton btnExcluirRendimento;
+    private JScrollPane scrollPane;
 
 	/**
 	 * Launch the application.
 	 */
 	  public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
-	  RendimentoWindow window = new RendimentoWindow();
+	  FundoOcasionalWindow window = new FundoOcasionalWindow();
 	  window.frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
 	  }); }
 	 
@@ -58,71 +57,53 @@ public class  RendimentoWindow{
  * Create the frame.
  * @wbp.parser.entryPoint
  */
-    public RendimentoWindow() {
+    public FundoOcasionalWindow() {
         this.initComponents();
     }
 
     private void initComponents() {
         frame = new JFrame();
-        frame.setBounds(100, 100, 570, 433);
+        frame.setBounds(100, 100, 570, 390);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setLayout(null);
         
         panelCadastro = new JPanel();
-        panelCadastro.setBorder(new TitledBorder(null, "Cadastrar Rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  fundo de despesas ocasionais", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelCadastro.setLayout(null);
-        panelCadastro.setBounds(10, 12, 548, 170);
+        panelCadastro.setBounds(10, 12, 548, 145);
         frame.getContentPane().add(panelCadastro);
         
-        lblRendimento = new JLabel("Rendimento:");
-        lblRendimento.setBounds(12, 53, 99, 14);
-        panelCadastro.add(lblRendimento);
+        lblDespesa = new JLabel("Despesa:");
+        lblDespesa.setBounds(12, 28, 99, 14);
+        panelCadastro.add(lblDespesa);
         
         txtRendimento = new JTextField();
         txtRendimento.setColumns(10);
-        txtRendimento.setBounds(109, 51, 150, 20);
+        txtRendimento.setBounds(109, 26, 150, 20);
         panelCadastro.add(txtRendimento);
         
         btnCadastrarRendimento = new JButton("Cadastrar");
-        btnCadastrarRendimento.setBounds(269, 135, 105, 23);
+        btnCadastrarRendimento.setBounds(269, 110, 105, 23);
         panelCadastro.add(btnCadastrarRendimento);
         
         btnLimparCampos = new JButton("Limpar campos");
-        btnLimparCampos.setBounds(386, 135, 150, 23);
+        btnLimparCampos.setBounds(386, 110, 150, 23);
         panelCadastro.add(btnLimparCampos);
         
-        lblCategoria = new JLabel("Categoria");
-        lblCategoria.setBounds(12, 26, 87, 15);
-        panelCadastro.add(lblCategoria);
-        
-        cbCategoria = new JComboBox<String>();
-        cbCategoria.setBounds(109, 21, 150, 20);
-        panelCadastro.add(cbCategoria);
-        
-        btnAddCategoria = new JButton("✎");
-        btnAddCategoria.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnAddCategoriaAction();
-        	}
-        });
-        btnAddCategoria.setFont(new Font("Dialog", Font.BOLD, 12));
-        btnAddCategoria.setBounds(269, 21, 44, 20);
-        panelCadastro.add(btnAddCategoria);
-        
         lblValor = new JLabel("Valor:");
-        lblValor.setBounds(12, 79, 70, 15);
+        lblValor.setBounds(12, 54, 70, 15);
         panelCadastro.add(lblValor);
         
         
         txtValor = new JTextField();
         txtValor.setColumns(10);
-        txtValor.setBounds(109, 77, 150, 20);
+        txtValor.setBounds(109, 52, 150, 20);
         panelCadastro.add(txtValor);
         
         panelTipoRendimento = new JPanel();
         
-                panelTipoRendimento.setBorder(new TitledBorder(null, "Tipo de rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-                panelTipoRendimento.setBounds(12, 108, 247, 50);
+                panelTipoRendimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+                panelTipoRendimento.setBounds(12, 83, 247, 50);
                 panelCadastro.add(panelTipoRendimento);
                 panelTipoRendimento.setLayout(null);
                 
@@ -134,36 +115,32 @@ public class  RendimentoWindow{
                 rdbtnMensal.setBounds(136, 19, 89, 23);
                 panelTipoRendimento.add(rdbtnMensal);
 
-        panelRendimento = new JPanel();
-        panelRendimento.setBorder(new TitledBorder(null, "Rendimentos cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-        panelRendimento.setBounds(10, 188, 548, 197);
-        frame.getContentPane().add(panelRendimento);
-        panelRendimento.setLayout(null);
+        panelFundos = new JPanel();
+        panelFundos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fundos Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
+        panelFundos.setBounds(10, 169, 548, 186);
+        frame.getContentPane().add(panelFundos);
+        panelFundos.setLayout(null);
 
         btnEditarRendimento = new JButton("Editar");
         btnEditarRendimento.setBounds(333, 162, 100, 23);
-        panelRendimento.add(btnEditarRendimento);
+        panelFundos.add(btnEditarRendimento);
 
         btnExcluirRendimento = new JButton("Excluir");
         btnExcluirRendimento.setBounds(438, 162, 100, 23);
-        panelRendimento.add(btnExcluirRendimento);
+        panelFundos.add(btnExcluirRendimento);
         
                 scrollPane = new JScrollPane();
                 scrollPane.setBounds(12, 14, 526, 136);
-                panelRendimento.add(scrollPane);
+                panelFundos.add(scrollPane);
                 
                         table = new JTable();
                         table.setModel(new DefaultTableModel(
                             new Object[][] {
                             },
                             new String[] {
-                                "Categoria", "Rendimento","Mensal", "Ocasional", "Ano"
+                                "Fundo Ocasional", "Mensal", "Ocasional", "Total Anual"
                             }
                         ));
                         scrollPane.setViewportView(table);
     }
-
-	private void btnAddCategoriaAction() {
-			new CategoriaWindow().setVisible(true);
-	}
 }

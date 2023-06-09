@@ -17,6 +17,13 @@ public class CategoriaWindow extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private JButton btnExcluir;
+	private JButton btnEditar;
+	private JButton btnCadastrar;
+	private JLabel lblNome;
+	private JLabel lblCategoriasCadastradas;
+	private JComboBox comboBox;
+	private JLabel lblCadastrarOuEditar;
 
 	/**
 	 * Launch the application.
@@ -38,6 +45,10 @@ public class CategoriaWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public CategoriaWindow() {
+		this.initComponents();
+	}
+	
+	public void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 428, 217);
 		contentPane = new JPanel();
@@ -46,15 +57,15 @@ public class CategoriaWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
+		lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
 		lblCadastrarOuEditar.setBounds(12, 20, 255, 15);
 		contentPane.add(lblCadastrarOuEditar);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setBounds(195, 47, 209, 19);
 		contentPane.add(comboBox);
 		
-		JLabel lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
+		lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
 		lblCategoriasCadastradas.setBounds(12, 47, 177, 15);
 		contentPane.add(lblCategoriasCadastradas);
 		
@@ -63,19 +74,19 @@ public class CategoriaWindow extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblNome = new JLabel("Nome:");
+		lblNome = new JLabel("Nome:");
 		lblNome.setBounds(137, 80, 52, 15);
 		contentPane.add(lblNome);
 		
-		JButton btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.setBounds(12, 135, 127, 25);
 		contentPane.add(btnCadastrar);
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
 		btnEditar.setBounds(151, 135, 124, 25);
 		contentPane.add(btnEditar);
 		
-		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir = new JButton("Excluir");
 		btnExcluir.setBounds(287, 135, 117, 25);
 		contentPane.add(btnExcluir);
 	}
