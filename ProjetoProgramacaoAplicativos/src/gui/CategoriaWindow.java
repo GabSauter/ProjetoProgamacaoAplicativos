@@ -29,7 +29,7 @@ public class CategoriaWindow extends JFrame {
 	private JButton btnCadastrar;
 	private JLabel lblNome;
 	private JLabel lblCategoriasCadastradas;
-	private JComboBox<String> comboBox;
+	private JComboBox<Categoria> comboBox;
 	private JLabel lblCadastrarOuEditar;
 	
 	private List<Categoria> categorias;
@@ -65,7 +65,7 @@ public class CategoriaWindow extends JFrame {
 		lblCadastrarOuEditar.setBounds(12, 20, 255, 15);
 		contentPane.add(lblCadastrarOuEditar);
 		
-		comboBox = new JComboBox<String>();
+		comboBox = new JComboBox<Categoria>();
 		comboBox.setBounds(195, 47, 209, 19);
 		contentPane.add(comboBox);
 		
@@ -112,7 +112,7 @@ public class CategoriaWindow extends JFrame {
 
 	private void btnExcluirAction() {
 		Categoria categoria = new Categoria();
-		categoria.setNome((String) comboBox.getSelectedItem());
+		categoria = (Categoria) comboBox.getSelectedItem();
 		
 		int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
 		
@@ -130,7 +130,7 @@ public class CategoriaWindow extends JFrame {
 
 	private void btnEditarAction() {
 		Categoria categoria = new Categoria();
-		categoria.setNome((String) comboBox.getSelectedItem());
+		categoria = (Categoria) comboBox.getSelectedItem();
 		String novoNomeCategoria = textField.getText();
 		
 		int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o nome da categoria: " + categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
@@ -169,8 +169,9 @@ public class CategoriaWindow extends JFrame {
 			
 			this.comboBox.removeAllItems();
 			for(Categoria categoria : categorias) {
-				this.comboBox.addItem(categoria.getNome());
+				this.comboBox.addItem(categoria);
 			}
+			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}

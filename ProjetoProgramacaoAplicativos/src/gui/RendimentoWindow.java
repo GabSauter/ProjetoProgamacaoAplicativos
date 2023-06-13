@@ -12,14 +12,19 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import entities.Categoria;
+import entities.Rendimento;
 import service.CategoriaService;
+import service.RendimentoService;
 
 import javax.swing.border.TitledBorder;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
@@ -38,7 +43,7 @@ public class  RendimentoWindow{
     private JButton btnCadastrarRendimento;
     private JButton btnLimparCampos;
     private JLabel lblCategoria;
-    private JComboBox<String> cbCategoria;
+    private JComboBox<Categoria> cbCategoria;
     private JButton btnAddCategoria;
     private JLabel lblValor;
     private JPanel panelTipoRendimento;
@@ -59,6 +64,7 @@ public class  RendimentoWindow{
     public RendimentoWindow() {
         this.initComponents();
         this.carregarComboBox();
+        this.carregaTabelaRendimento();
     }
     
 
@@ -86,7 +92,7 @@ public class  RendimentoWindow{
         btnCadastrarRendimento = new JButton("Cadastrar");
         btnCadastrarRendimento.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		btnCadastrarRendimento();
+        		btnCadastrarRendimentoAction();
         	}
         });
         btnCadastrarRendimento.setBounds(269, 135, 105, 23);
@@ -105,7 +111,7 @@ public class  RendimentoWindow{
         lblCategoria.setBounds(12, 26, 87, 15);
         panelCadastro.add(lblCategoria);
         
-        cbCategoria = new JComboBox<String>();
+        cbCategoria = new JComboBox<Categoria>();
         cbCategoria.setBounds(109, 21, 150, 20);
         panelCadastro.add(cbCategoria);
         
@@ -173,6 +179,12 @@ public class  RendimentoWindow{
         panelRendimento.add(scrollPane);
                 
         table = new JTable();
+        table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableMouseClickedAction();
+			}
+		});
         table.setModel(new DefaultTableModel(
             new Object[][] {
             },
@@ -183,38 +195,120 @@ public class  RendimentoWindow{
         scrollPane.setViewportView(table);
     }
     
-    private void carregarComboBox() {
+    
+    
+    
+
+	private void btnExcluirRendimentoAction() {
+		
+	}
+
+	private void btnEditarRendimentoAction() {
+		
+		
+	}
+
+
+	private void btnCadastrarRendimentoAction() {
+		Categoria categoria = new Categoria();
+		categoria = (Categoria) cbCategoria.getSelectedItem();
+		
+		Rendimento rendimento = new Rendimento();
+		rendimento.setCategoria(categoria);
+		rendimento.setRendimento(txtRendimento.getText());
+		
+		if(rdbtnMensal.isSelected()){
+			rdbtnOcasional.setSelected(false);
+			rendimento.setMensal(Double.parseDouble(txtValor.getText()));
+			rendimento.setOcasional(0.0);
+			rendimento.setTotalAno(Double.parseDouble(txtValor.getText())*12);
+		}
+		if(rdbtnOcasional.isSelected()){
+			rdbtnMensal.setSelected(false);
+			rendimento.setOcasional(Double.parseDouble(txtValor.getText()));
+			rendimento.setMensal(0.0);
+			rendimento.setTotalAno(Double.parseDouble(txtValor.getText()));
+		}
+		
+		try {
+			new RendimentoService().cadastrar(rendimento);
+			
+			carregaTabelaRendimento();
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void btnLimparCamposAction() {
+		
+	}
+
+	private void btnAddCategoriaAction() {
+		new CategoriaWindow().setVisible(true);
+	}
+	
+	private void carregarComboBox() {
 		try {
 			
 			this.categorias = new CategoriaService().buscarTodos();
 			
 			this.cbCategoria.removeAllItems();
 			for(Categoria categoria : categorias) {
-				this.cbCategoria.addItem(categoria.getNome());
+				this.cbCategoria.addItem(categoria);
 			}
 			
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
     }
-    
-    private void btnExcluirRendimentoAction() {
+	
+	private void carregaTabelaRendimento() {
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.fireTableDataChanged();
+		model.setRowCount(0);
 		
+		List<Rendimento> rendimentos = new ArrayList<Rendimento>();
+		try {
+			rendimentos = new RendimentoService().buscarTodos();
+			for(Rendimento rendimento: rendimentos) {
+				model.addRow(new Object[] {
+						rendimento.getCategoria().getNome(),
+						rendimento.getRendimento(),
+						rendimento.getMensal(),
+						rendimento.getOcasional(),
+						rendimento.getTotalAno()
+				});
+			}
+		} catch (SQLException | IOException e) {
+			e.printStackTrace();
+		}
 	}
-
-	private void btnEditarRendimentoAction() {
+	
+	private void tableMouseClickedAction() {
+    	int coluna = table.getSelectedRow();
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		
-	}
-
-	private void btnLimparCamposAction() {
+		Categoria categoria = new Categoria();
+		for(Categoria categoriaItem: categorias) {
+			if(categoriaItem.getNome().equals(model.getValueAt(coluna, 0).toString()))
+				categoria = categoriaItem;
+		}
 		
-	}
-
-	private void btnCadastrarRendimento() {
+		cbCategoria.setSelectedItem(categoria);
 		
-	}
-
-	private void btnAddCategoriaAction() {
-			new CategoriaWindow().setVisible(true);
+		txtRendimento.setText(model.getValueAt(coluna, 1).toString());
+		
+		Boolean isMensal = (Double.parseDouble(model.getValueAt(coluna, 2).toString()) > Double.parseDouble(model.getValueAt(coluna, 3).toString()));
+		
+		String valor =  isMensal ? model.getValueAt(coluna, 2).toString() : model.getValueAt(coluna, 3).toString();
+		txtValor.setText(valor);
+		
+		if(isMensal) {
+			rdbtnMensal.setSelected(true);
+			rdbtnOcasional.setSelected(false);
+		}else {
+			rdbtnMensal.setSelected(false);
+			rdbtnOcasional.setSelected(true);
+		}
 	}
 }

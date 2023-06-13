@@ -23,7 +23,7 @@ public class Categoria {
 	
 	@Override
 	public String toString() {
-		return id + " " + nome;
+		return nome;
 	}
 
 }
