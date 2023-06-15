@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -22,13 +24,15 @@ import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 
-public class  RendimentoWindow{
+public class  RendimentoWindow extends JFrame{
 
     private JFrame frame;
     private JTable table;
@@ -51,6 +55,7 @@ public class  RendimentoWindow{
     private JRadioButton rdbtnMensal;
     
     private List<Categoria> categorias;
+    private List<Rendimento> rendimentos;
 
 	public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
 		RendimentoWindow window = new RendimentoWindow();
@@ -142,6 +147,10 @@ public class  RendimentoWindow{
         panelCadastro.add(panelTipoRendimento);
         panelTipoRendimento.setLayout(null);
         
+        ButtonGroup buttonGroup = new ButtonGroup();
+        buttonGroup.add(rdbtnOcasional);
+        buttonGroup.add(rdbtnMensal);
+        
         rdbtnOcasional = new JRadioButton("Ocasional");
         rdbtnOcasional.setBounds(8, 19, 95, 23);
         panelTipoRendimento.add(rdbtnOcasional);
@@ -149,6 +158,22 @@ public class  RendimentoWindow{
         rdbtnMensal = new JRadioButton("Mensal");
         rdbtnMensal.setBounds(136, 19, 89, 23);
         panelTipoRendimento.add(rdbtnMensal);
+        
+        rdbtnOcasional.setSelected(true);
+        
+        rdbtnMensal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	rdbtnOcasional.setSelected(false);
+            }
+        });
+
+        rdbtnOcasional.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	rdbtnMensal.setSelected(false);
+            }
+        });
 
         panelRendimento = new JPanel();
         panelRendimento.setBorder(new TitledBorder(null, "Rendimentos cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -195,17 +220,70 @@ public class  RendimentoWindow{
         scrollPane.setViewportView(table);
     }
     
-    
-    
-    
+    private void btnExcluirRendimentoAction() {
+        int coluna = table.getSelectedRow();
 
-	private void btnExcluirRendimentoAction() {
-		
-	}
+        if (coluna == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um rendimento para excluir.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Rendimento rendimento = rendimentos.get(coluna);
+
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir o rendimento: " + rendimento.getRendimento() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            try {
+                new RendimentoService().excluir(rendimento);
+                JOptionPane.showMessageDialog(this, "Rendimento excluido.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                carregaTabelaRendimento();
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Erro ao excluir Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
 	private void btnEditarRendimentoAction() {
 		
-		
+		int coluna = table.getSelectedRow();
+
+        if (coluna == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um rendimento para editar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Rendimento rendimento = rendimentos.get(coluna);
+        
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o rendimento: " + rendimento.getRendimento() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+        if (resposta == JOptionPane.YES_OPTION) {
+            try {
+            	Categoria categoria = new Categoria();
+        		categoria = (Categoria) cbCategoria.getSelectedItem();
+        		
+        		Rendimento rendimentoEditado = new Rendimento();
+        		rendimentoEditado.setId(rendimento.getId());
+        		rendimentoEditado.setCategoria(categoria);
+        		rendimentoEditado.setRendimento(txtRendimento.getText());
+        		
+        		if(rdbtnMensal.isSelected()){
+        			rendimentoEditado.setMensal(Double.parseDouble(txtValor.getText()));
+        			rendimentoEditado.setOcasional(0.0);
+        			rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText())*12);
+        		}
+        		if(rdbtnOcasional.isSelected()){
+        			rendimentoEditado.setOcasional(Double.parseDouble(txtValor.getText()));
+        			rendimentoEditado.setMensal(0.0);
+        			rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText()));
+        		}
+        		
+                new RendimentoService().atualizar(rendimentoEditado);
+                JOptionPane.showMessageDialog(this, "Rendimento editado.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                carregaTabelaRendimento();
+            } catch (SQLException | IOException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Erro ao editar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
 	}
 
 
@@ -218,13 +296,11 @@ public class  RendimentoWindow{
 		rendimento.setRendimento(txtRendimento.getText());
 		
 		if(rdbtnMensal.isSelected()){
-			rdbtnOcasional.setSelected(false);
 			rendimento.setMensal(Double.parseDouble(txtValor.getText()));
 			rendimento.setOcasional(0.0);
 			rendimento.setTotalAno(Double.parseDouble(txtValor.getText())*12);
 		}
 		if(rdbtnOcasional.isSelected()){
-			rdbtnMensal.setSelected(false);
 			rendimento.setOcasional(Double.parseDouble(txtValor.getText()));
 			rendimento.setMensal(0.0);
 			rendimento.setTotalAno(Double.parseDouble(txtValor.getText()));
@@ -232,19 +308,29 @@ public class  RendimentoWindow{
 		
 		try {
 			new RendimentoService().cadastrar(rendimento);
-			
+			//JOptionPane.showMessageDialog(this, "Rendimento cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 			carregaTabelaRendimento();
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Erro ao cadastrar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 	
 	private void btnLimparCamposAction() {
-		
+		txtRendimento.setText("");
+		txtValor.setText("");
 	}
 
 	private void btnAddCategoriaAction() {
-		new CategoriaWindow().setVisible(true);
+		CategoriaWindow categoriaWindow = new CategoriaWindow();
+        categoriaWindow.setVisible(true);
+		
+        categoriaWindow.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+            	carregarComboBox();
+            }
+        });
 	}
 	
 	private void carregarComboBox() {
@@ -258,6 +344,7 @@ public class  RendimentoWindow{
 			}
 			
 		} catch (SQLException | IOException e) {
+			JOptionPane.showMessageDialog(this, "Erro ao carregar categorias.", "Erro", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
     }
@@ -267,7 +354,7 @@ public class  RendimentoWindow{
 		model.fireTableDataChanged();
 		model.setRowCount(0);
 		
-		List<Rendimento> rendimentos = new ArrayList<Rendimento>();
+		rendimentos = new ArrayList<Rendimento>();
 		try {
 			rendimentos = new RendimentoService().buscarTodos();
 			for(Rendimento rendimento: rendimentos) {
@@ -280,6 +367,7 @@ public class  RendimentoWindow{
 				});
 			}
 		} catch (SQLException | IOException e) {
+			JOptionPane.showMessageDialog(this, "Erro ao carregar rendimentos.", "Erro", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 	}
