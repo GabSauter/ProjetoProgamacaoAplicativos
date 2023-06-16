@@ -256,64 +256,87 @@ public class  RendimentoWindow extends JFrame{
         
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o rendimento: " + rendimento.getRendimento() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
-            try {
-            	Categoria categoria = new Categoria();
-        		categoria = (Categoria) cbCategoria.getSelectedItem();
+        	Categoria categoria = new Categoria();
+    		categoria = (Categoria) cbCategoria.getSelectedItem();
+    		
+    		if (categoria instanceof Categoria) {
+    			if(!(txtRendimento.getText().toString().equals("") || txtValor.getText().toString().equals(""))) {
+    				
+    				Rendimento rendimentoEditado = new Rendimento();
+    				rendimentoEditado.setId(rendimento.getId());
+    				rendimentoEditado.setCategoria(categoria);
+    				rendimentoEditado.setRendimento(txtRendimento.getText());
+    				
+    				try {
+    					
+    					if(rdbtnMensal.isSelected()){
+    						rendimentoEditado.setMensal(Double.parseDouble(txtValor.getText()));
+    						rendimentoEditado.setOcasional(0.0);
+    						rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText())*12);
+    					}
+    					if(rdbtnOcasional.isSelected()){
+    						rendimentoEditado.setOcasional(Double.parseDouble(txtValor.getText()));
+    						rendimentoEditado.setMensal(0.0);
+    						rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText()));
+    					}
+    					
+    					new RendimentoService().atualizar(rendimentoEditado);
+    					JOptionPane.showMessageDialog(this, "Rendimento editado.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+    					carregaTabelaRendimento();
+    				} catch (NumberFormatException e) {
+    				    JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
+    				} catch (SQLException | IOException e) {
+    					e.printStackTrace();
+    					JOptionPane.showMessageDialog(this, "Erro ao editar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+    				}
+    			}else {
+    				JOptionPane.showMessageDialog(this, "Por favor insira valores em todos os campos para editar uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+    			}
+    		}else {
+    			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada, por favor cadastre uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+    		}
         		
-        		Rendimento rendimentoEditado = new Rendimento();
-        		rendimentoEditado.setId(rendimento.getId());
-        		rendimentoEditado.setCategoria(categoria);
-        		rendimentoEditado.setRendimento(txtRendimento.getText());
-        		
-        		if(rdbtnMensal.isSelected()){
-        			rendimentoEditado.setMensal(Double.parseDouble(txtValor.getText()));
-        			rendimentoEditado.setOcasional(0.0);
-        			rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText())*12);
-        		}
-        		if(rdbtnOcasional.isSelected()){
-        			rendimentoEditado.setOcasional(Double.parseDouble(txtValor.getText()));
-        			rendimentoEditado.setMensal(0.0);
-        			rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText()));
-        		}
-        		
-                new RendimentoService().atualizar(rendimentoEditado);
-                JOptionPane.showMessageDialog(this, "Rendimento editado.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                carregaTabelaRendimento();
-            } catch (SQLException | IOException e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Erro ao editar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
         }
 	}
-
 
 	private void btnCadastrarRendimentoAction() {
 		Categoria categoria = new Categoria();
 		categoria = (Categoria) cbCategoria.getSelectedItem();
 		
-		Rendimento rendimento = new Rendimento();
-		rendimento.setCategoria(categoria);
-		rendimento.setRendimento(txtRendimento.getText());
+		if (categoria instanceof Categoria) {
+			if(!(txtRendimento.getText().toString().equals("") || txtValor.getText().toString().equals(""))) {
+				Rendimento rendimento = new Rendimento();
+				rendimento.setCategoria(categoria);
+				rendimento.setRendimento(txtRendimento.getText());
+				
+				try {
+					if(rdbtnMensal.isSelected()){
+						rendimento.setMensal(Double.parseDouble(txtValor.getText()));
+						rendimento.setOcasional(0.0);
+						rendimento.setTotalAno(Double.parseDouble(txtValor.getText())*12);
+					}
+					if(rdbtnOcasional.isSelected()){
+						rendimento.setOcasional(Double.parseDouble(txtValor.getText()));
+						rendimento.setMensal(0.0);
+						rendimento.setTotalAno(Double.parseDouble(txtValor.getText()));
+					}
+					
+					new RendimentoService().cadastrar(rendimento);
+					//JOptionPane.showMessageDialog(this, "Rendimento cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					carregaTabelaRendimento();
+				} catch (NumberFormatException e) {
+				    JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
+				}catch (SQLException | IOException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, "Erro ao cadastrar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+				} 
+			}else {
+				JOptionPane.showMessageDialog(this, "Por favor insira valores em todos os campos para cadastrar uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+			}
+		}else {
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada, por favor cadastre uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+		}
 		
-		if(rdbtnMensal.isSelected()){
-			rendimento.setMensal(Double.parseDouble(txtValor.getText()));
-			rendimento.setOcasional(0.0);
-			rendimento.setTotalAno(Double.parseDouble(txtValor.getText())*12);
-		}
-		if(rdbtnOcasional.isSelected()){
-			rendimento.setOcasional(Double.parseDouble(txtValor.getText()));
-			rendimento.setMensal(0.0);
-			rendimento.setTotalAno(Double.parseDouble(txtValor.getText()));
-		}
-		
-		try {
-			new RendimentoService().cadastrar(rendimento);
-			//JOptionPane.showMessageDialog(this, "Rendimento cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-			carregaTabelaRendimento();
-		} catch (SQLException | IOException e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this, "Erro ao cadastrar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
-		}
 	}
 	
 	private void btnLimparCamposAction() {

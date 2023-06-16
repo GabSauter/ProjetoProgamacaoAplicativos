@@ -114,17 +114,21 @@ public class CategoriaWindow extends JFrame {
 		Categoria categoria = new Categoria();
 		categoria = (Categoria) comboBox.getSelectedItem();
 		
-		int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
-		
-		if (resposta == JOptionPane.YES_OPTION) {
-			try {
-		        new CategoriaService().excluir(categoria);
-		        JOptionPane.showMessageDialog(this, "Categoria excluida", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-		        carregarComboBox();
-		    } catch (SQLException | IOException e) {
-		        e.printStackTrace();
-		        JOptionPane.showMessageDialog(this, "Erro ao excluir categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
-		    }
+		if (categoria instanceof Categoria) {
+			int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+			
+			if (resposta == JOptionPane.YES_OPTION) {
+				try {
+			        new CategoriaService().excluir(categoria);
+			        JOptionPane.showMessageDialog(this, "Categoria excluida", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+			        carregarComboBox();
+			    } catch (SQLException | IOException e) {
+			        e.printStackTrace();
+			        JOptionPane.showMessageDialog(this, "Erro ao excluir categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
+			    }
+			}
+		}else {
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para excluir.", "Aviso", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -133,32 +137,42 @@ public class CategoriaWindow extends JFrame {
 		categoria = (Categoria) comboBox.getSelectedItem();
 		String novoNomeCategoria = textField.getText();
 		
-		int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o nome da categoria: " + categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
-
-		if (resposta == JOptionPane.YES_OPTION) {
-			try {
-		        new CategoriaService().atualizar(novoNomeCategoria, categoria);
-		        JOptionPane.showMessageDialog(this, "Categoria editada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-		        carregarComboBox();
-		    } catch (SQLException | IOException e) {
-		        e.printStackTrace();
-		        JOptionPane.showMessageDialog(this, "Erro ao editar categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
-		    }
+		if (categoria instanceof Categoria) {
+			int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o nome da categoria: " + categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
+			
+			if (resposta == JOptionPane.YES_OPTION) {
+				try {
+					new CategoriaService().atualizar(novoNomeCategoria, categoria);
+					JOptionPane.showMessageDialog(this, "Categoria editada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					carregarComboBox();
+				} catch (SQLException | IOException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, "Erro ao editar categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}else {
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para editar.", "Aviso", JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
 	private void btnCadastrarAction() {
 		Categoria categoria = new Categoria();
-		categoria.setNome(textField.getText());
 		
-		try {
-	        new CategoriaService().cadastrar(categoria);
-	        JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-	        carregarComboBox();
-	    } catch (SQLException | IOException e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(this, "Erro ao cadastrar categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
-	    }
+		if(textField.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Por favor digite o nome da categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
+		}else {
+			categoria.setNome(textField.getText());
+			
+			try {
+				new CategoriaService().cadastrar(categoria);
+				JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+				textField.setText("");
+				carregarComboBox();
+			} catch (SQLException | IOException e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Erro ao cadastrar categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 	
 	private void carregarComboBox() {
