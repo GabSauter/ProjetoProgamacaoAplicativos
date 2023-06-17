@@ -410,7 +410,6 @@ public class  RendimentoWindow extends JFrame{
 		txtRendimento.setText(model.getValueAt(coluna, 1).toString());
 		
 		Boolean isMensal = (Double.parseDouble(model.getValueAt(coluna, 2).toString()) > Double.parseDouble(model.getValueAt(coluna, 3).toString()));
-		
 		String valor =  isMensal ? model.getValueAt(coluna, 2).toString() : model.getValueAt(coluna, 3).toString();
 		txtValor.setText(valor);
 		
