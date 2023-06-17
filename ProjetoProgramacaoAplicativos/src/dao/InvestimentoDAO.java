@@ -23,12 +23,13 @@ public class InvestimentoDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("INSERT INTO investimentos (nome, mensal, ocasional, total_anual) VALUES(?,?,?,?)");
+			st = conn.prepareStatement("INSERT INTO investimentos (nome, mensal, ocasional, total_anual, data) VALUES(?,?,?,?,?)");
 			
 			st.setString(1, investimento.getInvestimento());
 			st.setDouble(2, investimento.getMensal());
 			st.setDouble(3, investimento.getOcasional());
 			st.setDouble(4, investimento.getTotalAno());
+			st.setString(5, investimento.getData());
 			
 			st.executeUpdate();
 			
@@ -44,13 +45,14 @@ public class InvestimentoDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("UPDATE investimentos SET nome = ?, mensal = ?, ocasional = ?, total_anual = ? WHERE id = ?");
+			st = conn.prepareStatement("UPDATE investimentos SET nome = ?, mensal = ?, ocasional = ?, total_anual = ?, data = ? WHERE id = ?");
 			
 			st.setString(1, investimento.getInvestimento());
 			st.setDouble(2, investimento.getMensal());
 			st.setDouble(3, investimento.getOcasional());
 			st.setDouble(4, investimento.getTotalAno());
-			st.setInt(5, investimento.getId());
+			st.setString(5, investimento.getData());
+			st.setInt(6, investimento.getId());
 			
 			st.executeUpdate();
 		} finally {
@@ -86,7 +88,7 @@ public class InvestimentoDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("SELECT id, nome, mensal, ocasional, total_anual FROM investimentos ORDER BY nome");
+			st = conn.prepareStatement("SELECT id, nome, mensal, ocasional, total_anual, data FROM investimentos ORDER BY nome");
 			
 			rs = st.executeQuery();
 			
@@ -101,6 +103,7 @@ public class InvestimentoDAO {
 	            investimento.setMensal(rs.getDouble("mensal"));
 	            investimento.setOcasional(rs.getDouble("ocasional"));
 	            investimento.setTotalAno(rs.getDouble("total_anual"));
+	            investimento.setData(rs.getString("data"));
 	            
 	            listaInvestimentos.add(investimento);
 			}
