@@ -8,6 +8,7 @@ public class Despesa {
 	private double mensal;
 	private double ocasional;
 	private double totalAno;
+	private String data;
 	
 	public int getId() {
 		return id;
@@ -46,6 +47,12 @@ public class Despesa {
 		this.totalAno = totalAno;
 	}
 	
+	public String getData() {
+		return data;
+	}
+	public void setData(String data) {
+		this.data = data;
+	}
 	@Override
 	public String toString() {
 		return "Despesa [id=" + id + ", categoria=" + categoria + ", despesa=" + despesa + ", mensal=" + mensal
