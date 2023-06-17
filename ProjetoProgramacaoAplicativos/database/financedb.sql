@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3307
--- Tempo de geração: 04/06/2023 às 21:57
+-- Tempo de geração: 17/06/2023 às 22:08
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -44,7 +44,8 @@ CREATE TABLE `despesas` (
   `despesa` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
   `ocasional` double NOT NULL,
-  `total_anual` double NOT NULL
+  `total_anual` double NOT NULL,
+  `data` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -58,7 +59,8 @@ CREATE TABLE `fundo` (
   `nome` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
   `ocasional` double NOT NULL,
-  `total_anual` double NOT NULL
+  `total_anual` double NOT NULL,
+  `data` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -72,7 +74,8 @@ CREATE TABLE `investimentos` (
   `nome` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
   `ocasional` double NOT NULL,
-  `total_anual` double NOT NULL
+  `total_anual` double NOT NULL,
+  `data` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -87,7 +90,8 @@ CREATE TABLE `rendimento` (
   `rendimento` varchar(255) NOT NULL,
   `mensal` double NOT NULL,
   `ocasional` double NOT NULL,
-  `total_anual` double NOT NULL
+  `total_anual` double NOT NULL,
+  `data` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -134,31 +138,31 @@ ALTER TABLE `rendimento`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `despesas`
 --
 ALTER TABLE `despesas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `fundo`
 --
 ALTER TABLE `fundo`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `investimentos`
 --
 ALTER TABLE `investimentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de tabela `rendimento`
 --
 ALTER TABLE `rendimento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- Restrições para tabelas despejadas
