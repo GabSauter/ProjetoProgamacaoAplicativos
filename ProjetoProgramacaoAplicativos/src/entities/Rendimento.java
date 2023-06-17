@@ -52,10 +52,10 @@ public class Rendimento {
 	public void setData(String data) {
 		this.data = data;
 	}
-	
 	@Override
 	public String toString() {
-		return "Rendimento [id=" + id + ", categoria=" + categoria + ", rendimento= " + rendimento + ", mensal=" + mensal
-				+ ", ocasional=" + ocasional + ", totalAno=" + totalAno + "]";
+		return "Rendimento [id=" + id + ", categoria=" + categoria + ", rendimento=" + rendimento + ", mensal=" + mensal
+				+ ", ocasional=" + ocasional + ", totalAno=" + totalAno + ", data=" + data + "]";
 	}
+	
 }

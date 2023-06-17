@@ -24,13 +24,14 @@ public class DespesaDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("INSERT INTO despesas (categoria_id, despesa, mensal, ocasional, total_anual) VALUES(?,?,?,?,?)");
+			st = conn.prepareStatement("INSERT INTO despesas (categoria_id, despesa, mensal, ocasional, total_anual, data) VALUES(?,?,?,?,?,?)");
 			
 			st.setInt(1, despesa.getCategoria().getId());
 			st.setString(2, despesa.getDespesa());
 			st.setDouble(3, despesa.getMensal());
 			st.setDouble(4, despesa.getOcasional());
 			st.setDouble(5, despesa.getTotalAno());
+			st.setString(6, despesa.getData());
 			
 			st.executeUpdate();
 			
@@ -46,14 +47,15 @@ public class DespesaDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("UPDATE despesas SET categoria_id = ?, despesa = ?, mensal = ?, ocasional = ?, total_anual = ? WHERE id = ?");
+			st = conn.prepareStatement("UPDATE despesas SET categoria_id = ?, despesa = ?, mensal = ?, ocasional = ?, total_anual = ?, data = ? WHERE id = ?");
 			
 			st.setInt(1, despesa.getCategoria().getId());
 			st.setString(2, despesa.getDespesa());
 			st.setDouble(3, despesa.getMensal());
 			st.setDouble(4, despesa.getOcasional());
 			st.setDouble(5, despesa.getTotalAno());
-			st.setInt(6, despesa.getId());
+			st.setString(6, despesa.getData());
+			st.setInt(7, despesa.getId());
 			
 			st.executeUpdate();
 		} finally {
@@ -89,7 +91,7 @@ public class DespesaDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("SELECT d.id, d.categoria_id, c.nome, d.despesa, d.mensal, d.ocasional, d.total_anual FROM despesas d INNER JOIN categoria c ON d.categoria_id = c.id ORDER BY d.despesa");
+			st = conn.prepareStatement("SELECT d.id, d.categoria_id, c.nome, d.despesa, d.mensal, d.ocasional, d.total_anual, d.data FROM despesas d INNER JOIN categoria c ON d.categoria_id = c.id ORDER BY d.despesa");
 			
 			rs = st.executeQuery();
 			
@@ -109,6 +111,7 @@ public class DespesaDAO {
 	            despesa.setMensal(rs.getDouble("mensal"));
 	            despesa.setOcasional(rs.getDouble("ocasional"));
 	            despesa.setTotalAno(rs.getDouble("total_anual"));
+	            despesa.setData(rs.getString("data"));
 	            
 	            listaDespesas.add(despesa);
 			}

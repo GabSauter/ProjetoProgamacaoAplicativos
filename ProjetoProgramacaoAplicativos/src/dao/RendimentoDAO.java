@@ -24,13 +24,14 @@ public class RendimentoDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("INSERT INTO rendimento (categoria_id, rendimento, mensal, ocasional, total_anual) VALUES(?,?,?,?,?)");
+			st = conn.prepareStatement("INSERT INTO rendimento (categoria_id, rendimento, mensal, ocasional, total_anual, data) VALUES(?,?,?,?,?,?)");
 			
 			st.setInt(1, rendimento.getCategoria().getId());
 			st.setString(2, rendimento.getRendimento());
 			st.setDouble(3, rendimento.getMensal());
 			st.setDouble(4, rendimento.getOcasional());
 			st.setDouble(5, rendimento.getTotalAno());
+			st.setString(6, rendimento.getData());
 			
 			st.executeUpdate();
 			
@@ -46,14 +47,15 @@ public class RendimentoDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("UPDATE rendimento SET categoria_id = ?, rendimento = ?, mensal = ?, ocasional = ?, total_anual = ? WHERE id = ?");
+			st = conn.prepareStatement("UPDATE rendimento SET categoria_id = ?, rendimento = ?, mensal = ?, ocasional = ?, total_anual = ?, data = ? WHERE id = ?");
 			
 			st.setInt(1, rendimento.getCategoria().getId());
 			st.setString(2, rendimento.getRendimento());
 			st.setDouble(3, rendimento.getMensal());
 			st.setDouble(4, rendimento.getOcasional());
 			st.setDouble(5, rendimento.getTotalAno());
-			st.setInt(6, rendimento.getId());
+			st.setString(6, rendimento.getData());
+			st.setInt(7, rendimento.getId());
 			
 			st.executeUpdate();
 		} finally {
@@ -89,7 +91,7 @@ public class RendimentoDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("SELECT r.id, r.categoria_id, c.nome, r.rendimento, r.mensal, r.ocasional, r.total_anual FROM rendimento r INNER JOIN categoria c ON r.categoria_id = c.id ORDER BY r.rendimento");
+			st = conn.prepareStatement("SELECT r.id, r.categoria_id, c.nome, r.rendimento, r.mensal, r.ocasional, r.total_anual, r.data FROM rendimento r INNER JOIN categoria c ON r.categoria_id = c.id ORDER BY r.rendimento");
 			
 			rs = st.executeQuery();
 			
@@ -109,6 +111,7 @@ public class RendimentoDAO {
 	            rendimento.setMensal(rs.getDouble("mensal"));
 	            rendimento.setOcasional(rs.getDouble("ocasional"));
 	            rendimento.setTotalAno(rs.getDouble("total_anual"));
+	            rendimento.setData(rs.getString("data"));
 	            
 	            listaRendimentos.add(rendimento);
 			}

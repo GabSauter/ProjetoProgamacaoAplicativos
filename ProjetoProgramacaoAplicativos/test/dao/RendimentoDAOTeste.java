@@ -13,14 +13,15 @@ public class RendimentoDAOTeste {
 	public static void cadastrarRendimentoTeste() throws SQLException, IOException {
 		
 		Categoria categoria = new Categoria();
-		categoria.setId(4);
-		categoria.setNome("Venda");
+		categoria.setId(27);
+		categoria.setNome("Casa");
 		
 		Rendimento rendimento = new Rendimento();
 		rendimento.setCategoria(categoria);
 		rendimento.setRendimento("Salário Mensal");
 		rendimento.setMensal(10000.00);
 		rendimento.setOcasional(0.00);
+		rendimento.setData("05/2023");
 		
 		if(rendimento.getMensal() == 0.00)
 			rendimento.setTotalAno(rendimento.getOcasional());
@@ -33,15 +34,16 @@ public class RendimentoDAOTeste {
 	
 	public static void atualizarRendimentoTeste() throws SQLException, IOException {
 		Categoria categoria = new Categoria();
-		categoria.setId(4);
-		categoria.setNome("Venda");
+		categoria.setId(27);
+		categoria.setNome("Casa");
 		
 		Rendimento rendimento = new Rendimento();
-		rendimento.setId(6);
+		rendimento.setId(42);
 		rendimento.setCategoria(categoria);
 		rendimento.setRendimento("Salário Mensal");
 		rendimento.setMensal(90000.00);
 		rendimento.setOcasional(0.00);
+		rendimento.setData("06/2006");
 		
 		if(rendimento.getMensal() == 0.00)
 			rendimento.setTotalAno(rendimento.getOcasional());
@@ -55,7 +57,7 @@ public class RendimentoDAOTeste {
 	public static void excluirRendimentoTeste() throws SQLException, IOException {
 		
 		Rendimento rendimento = new Rendimento();
-		rendimento.setId(6);
+		rendimento.setId(42);
 		
 		int linhasManipuladas = new RendimentoService().excluir(rendimento);
 		if(linhasManipuladas == 0)

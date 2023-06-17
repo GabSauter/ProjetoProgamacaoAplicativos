@@ -13,14 +13,15 @@ public class DespesaDAOTeste {
 	public static void cadastrarDespesaTeste() throws SQLException, IOException {
 		
 		Categoria categoria = new Categoria();
-		categoria.setId(26);
-		categoria.setNome("a");
+		categoria.setId(27);
+		categoria.setNome("Casa");
 		
 		Despesa despesa = new Despesa();
 		despesa.setCategoria(categoria);
 		despesa.setDespesa("Pagar aluguel");
 		despesa.setMensal(10000.00);
 		despesa.setOcasional(0.00);
+		despesa.setData("05/2023");
 		
 		if(despesa.getMensal() == 0.00)
 			despesa.setTotalAno(despesa.getOcasional());
@@ -33,15 +34,16 @@ public class DespesaDAOTeste {
 	
 	public static void atualizarDespesaTeste() throws SQLException, IOException {
 		Categoria categoria = new Categoria();
-		categoria.setId(26);
-		categoria.setNome("a");
+		categoria.setId(27);
+		categoria.setNome("Casa");
 		
 		Despesa despesa = new Despesa();
-		despesa.setId(2);
+		despesa.setId(3);
 		despesa.setCategoria(categoria);
 		despesa.setDespesa("Salário Mensal");
 		despesa.setMensal(90000.00);
 		despesa.setOcasional(0.00);
+		despesa.setData("06/2006");
 		
 		if(despesa.getMensal() == 0.00)
 			despesa.setTotalAno(despesa.getOcasional());
@@ -55,7 +57,7 @@ public class DespesaDAOTeste {
 	public static void excluirDespesaTeste() throws SQLException, IOException {
 		
 		Despesa despesa = new Despesa();
-		despesa.setId(2);
+		despesa.setId(3);
 		
 		int linhasManipuladas = new DespesaService().excluir(despesa);
 		if(linhasManipuladas == 0)
@@ -76,8 +78,8 @@ public class DespesaDAOTeste {
 		try {
 			//cadastrarDespesaTeste();
 			//atualizarDespesaTeste();
-			excluirDespesaTeste();
-			//buscarTodosDespesaTeste();
+			//excluirDespesaTeste();
+			buscarTodosDespesaTeste();
 			
 		} catch (SQLException | IOException e) {
 			System.out.println(e.getMessage());

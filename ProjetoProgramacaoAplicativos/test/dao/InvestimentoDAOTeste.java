@@ -14,6 +14,7 @@ public class InvestimentoDAOTeste {
 		investimento.setInvestimento("Pagar aluguel");
 		investimento.setMensal(10000.00);
 		investimento.setOcasional(0.00);
+		investimento.setData("05/2023");
 		
 		if(investimento.getMensal() == 0.00)
 			investimento.setTotalAno(investimento.getOcasional());
@@ -27,10 +28,11 @@ public class InvestimentoDAOTeste {
 	public static void atualizarInvestimentoTeste() throws SQLException, IOException {
 		
 		Investimento investimento = new Investimento();
-		investimento.setId(1);
+		investimento.setId(4);
 		investimento.setInvestimento("Salário Mensal");
 		investimento.setMensal(90000.00);
 		investimento.setOcasional(0.00);
+		investimento.setData("06/2006");
 		
 		if(investimento.getMensal() == 0.00)
 			investimento.setTotalAno(investimento.getOcasional());
@@ -44,7 +46,7 @@ public class InvestimentoDAOTeste {
 	public static void excluirInvestimentoTeste() throws SQLException, IOException {
 		
 		Investimento investimento = new Investimento();
-		investimento.setId(1);
+		investimento.setId(4);
 		
 		int linhasManipuladas = new InvestimentoService().excluir(investimento);
 		if(linhasManipuladas == 0)
@@ -65,8 +67,8 @@ public class InvestimentoDAOTeste {
 		try {
 			//cadastrarInvestimentoTeste();
 			//atualizarInvestimentoTeste();
-			//excluirInvestimentoTeste();
-			buscarTodosInvestimentoTeste();
+			excluirInvestimentoTeste();
+			//buscarTodosInvestimentoTeste();
 			
 		} catch (SQLException | IOException e) {
 			System.out.println(e.getMessage());

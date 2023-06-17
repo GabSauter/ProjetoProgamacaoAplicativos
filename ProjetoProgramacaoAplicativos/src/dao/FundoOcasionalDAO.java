@@ -22,12 +22,13 @@ public class FundoOcasionalDAO {
 		
 		try {
 			
-			st = conn.prepareStatement("INSERT INTO fundo (nome, mensal, ocasional, total_anual) VALUES(?,?,?,?)");
+			st = conn.prepareStatement("INSERT INTO fundo (nome, mensal, ocasional, total_anual, data) VALUES(?,?,?,?,?)");
 			
 			st.setString(1, fundoOcasional.getFundoOcasional());
 			st.setDouble(2, fundoOcasional.getMensal());
 			st.setDouble(3, fundoOcasional.getOcasional());
 			st.setDouble(4, fundoOcasional.getTotalAno());
+			st.setString(5, fundoOcasional.getData());
 			
 			st.executeUpdate();
 			
@@ -57,6 +58,7 @@ public class FundoOcasionalDAO {
 				fundo.setMensal(rs.getDouble("mensal"));
 				fundo.setOcasional(rs.getDouble("ocasional"));
 				fundo.setTotalAno(rs.getDouble("total_anual"));
+				fundo.setData(rs.getString("data"));
 				
 				listaFundos.add(fundo);
 			}
@@ -70,19 +72,20 @@ public class FundoOcasionalDAO {
 		}
 	}
 
-public void atualizar(FundoOcasional fundo) throws SQLException {
+	public void atualizar(FundoOcasional fundo) throws SQLException {
 		
 		PreparedStatement st = null;
 		
 		try {
 			
-			st = conn.prepareStatement("UPDATE fundo SET nome = ?, mensal = ?, ocasional = ?, total_anual = ? WHERE id = ?");
+			st = conn.prepareStatement("UPDATE fundo SET nome = ?, mensal = ?, ocasional = ?, total_anual = ?, data = ? WHERE id = ?");
 	
 			st.setString(1, fundo.getFundoOcasional());
 			st.setDouble(2, fundo.getMensal());
 			st.setDouble(3, fundo.getOcasional());
 			st.setDouble(4, fundo.getTotalAno());
-			st.setInt(5, fundo.getId());
+			st.setString(5, fundo.getData());
+			st.setInt(6, fundo.getId());
 			
 			st.executeUpdate();
 		} finally {
@@ -91,23 +94,23 @@ public void atualizar(FundoOcasional fundo) throws SQLException {
 		}
 	}
 
-public int excluir(FundoOcasional fundo) throws SQLException {
-	PreparedStatement st = null;
-	
-	try {
+	public int excluir(FundoOcasional fundo) throws SQLException {
+		PreparedStatement st = null;
 		
-		st = conn.prepareStatement("DELETE FROM fundo WHERE id = ?");
-		
-		st.setInt(1, fundo.getId());
-		
-		int linhasManipuladas = st.executeUpdate();
-		
-		return linhasManipuladas;
-		
-	}finally {
-		Database.finalizarStatement(st);
-		Database.desconectar();
+		try {
+			
+			st = conn.prepareStatement("DELETE FROM fundo WHERE id = ?");
+			
+			st.setInt(1, fundo.getId());
+			
+			int linhasManipuladas = st.executeUpdate();
+			
+			return linhasManipuladas;
+			
+		}finally {
+			Database.finalizarStatement(st);
+			Database.desconectar();
+		}
 	}
-}
 	
 }
