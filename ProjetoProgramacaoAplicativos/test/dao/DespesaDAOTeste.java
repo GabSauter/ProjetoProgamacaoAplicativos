@@ -10,7 +10,7 @@ import service.DespesaService;
 
 public class DespesaDAOTeste {
 
-public static void cadastrarDespesaTeste() throws SQLException, IOException {
+	public static void cadastrarDespesaTeste() throws SQLException, IOException {
 		
 		Categoria categoria = new Categoria();
 		categoria.setId(26);
@@ -28,7 +28,7 @@ public static void cadastrarDespesaTeste() throws SQLException, IOException {
 			despesa.setTotalAno(despesa.getMensal() * 12);
 		
 		new DespesaService().cadastrar(despesa);
-		System.out.println("Cadastro de rendimento feito com sucesso.");
+		System.out.println("Cadastro de despesa feito com sucesso.");
 	}
 	
 	public static void atualizarDespesaTeste() throws SQLException, IOException {
@@ -49,7 +49,7 @@ public static void cadastrarDespesaTeste() throws SQLException, IOException {
 			despesa.setTotalAno(despesa.getMensal() * 12);
 		
 		new DespesaService().atualizar(despesa);
-		System.out.println("Atualização de rendimento feito com sucesso.");
+		System.out.println("Atualização de despesa feito com sucesso.");
 	}
 	
 	public static void excluirDespesaTeste() throws SQLException, IOException {
@@ -59,16 +59,16 @@ public static void cadastrarDespesaTeste() throws SQLException, IOException {
 		
 		int linhasManipuladas = new DespesaService().excluir(despesa);
 		if(linhasManipuladas == 0)
-			System.out.println("Nenhum rendimento encontrado para exclusão");
+			System.out.println("Nenhum despesa encontrado para exclusão");
 		else
-			System.out.println("Exclusão de rendimento feito com sucesso.");
+			System.out.println("Exclusão de despesa feito com sucesso.");
 	}
 	
 	public static void buscarTodosDespesaTeste() throws SQLException, IOException {
 		
 		List<Despesa> listaRendimentos = new DespesaService().buscarTodos();
 		
-		System.out.println("Lista de rendimentos: " + listaRendimentos);
+		System.out.println("Lista de despesas: " + listaRendimentos);
 	}
 
 	public static void main(String[] args) {

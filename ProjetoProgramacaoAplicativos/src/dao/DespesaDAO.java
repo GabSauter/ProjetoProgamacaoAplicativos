@@ -12,7 +12,7 @@ import entities.Despesa;
 
 public class DespesaDAO {
 	
-private Connection conn;
+	private Connection conn;
 	
 	public DespesaDAO(Connection conn){
 		this.conn = conn;
