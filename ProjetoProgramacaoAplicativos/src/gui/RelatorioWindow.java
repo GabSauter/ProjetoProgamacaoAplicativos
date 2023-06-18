@@ -8,15 +8,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class RelatorioWindow {
-    private JFrame frame;
+public class RelatorioWindow extends JFrame {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                	RelatorioWindow window = new RelatorioWindow();
-                    window.frame.setVisible(true);
+                    RelatorioWindow window = new RelatorioWindow();
+                    window.setVisible(true);
+                    window.setLocationRelativeTo(null);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -29,14 +29,13 @@ public class RelatorioWindow {
     }
 
     private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 450, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 450, 300);
+        getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 434, 261);
-        frame.getContentPane().add(panel);
+        getContentPane().add(panel);
         panel.setLayout(null);
 
         JCheckBox chkRelatorioAnual = new JCheckBox("Relatório Anual");
@@ -54,22 +53,20 @@ public class RelatorioWindow {
         JButton btnGerarRelatorio = new JButton("Gerar Relatório");
         btnGerarRelatorio.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
                 boolean relatorioAnual = chkRelatorioAnual.isSelected();
                 boolean relatorioMensal = chkRelatorioMensal.isSelected();
                 boolean organizacao = chkOrganizacao.isSelected();
 
-               
                 if (relatorioAnual) {
-                    
+                    // Lógica para gerar relatório anual
                 }
 
                 if (relatorioMensal) {
-                   
+                    // Lógica para gerar relatório mensal
                 }
 
                 if (organizacao) {
-                  
+                    // Lógica para organização
                 }
             }
         });

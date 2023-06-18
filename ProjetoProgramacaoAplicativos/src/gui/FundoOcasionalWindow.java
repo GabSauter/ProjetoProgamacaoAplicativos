@@ -29,7 +29,7 @@ import service.FundoOcasionalService;
 
 public class  FundoOcasionalWindow extends JFrame {
 
-    private JFrame frame;
+ 
     private JTable table;
     private JTextField txtFundo;
     private JTextField txtValor;
@@ -50,10 +50,16 @@ public class  FundoOcasionalWindow extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	  public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
-	  FundoOcasionalWindow window = new FundoOcasionalWindow();
-	  window.frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
-	  }); }
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            try {
+                FundoOcasionalWindow window = new FundoOcasionalWindow();
+                window.setVisible(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 	 
 /**
  * Create the frame.
@@ -65,16 +71,15 @@ public class  FundoOcasionalWindow extends JFrame {
     }
 
     private void initComponents() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 570, 390);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+    	setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 570, 390);
+        getContentPane().setLayout(null);
         
         panelCadastro = new JPanel();
         panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  fundo de despesas ocasionais", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelCadastro.setLayout(null);
         panelCadastro.setBounds(10, 12, 548, 145);
-        frame.getContentPane().add(panelCadastro);
+        getContentPane().add(panelCadastro);
         
         lblDespesa = new JLabel("Despesa:");
         lblDespesa.setBounds(12, 28, 99, 14);
@@ -141,7 +146,7 @@ public class  FundoOcasionalWindow extends JFrame {
         panelFundos = new JPanel();
         panelFundos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fundos Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelFundos.setBounds(10, 169, 548, 186);
-        frame.getContentPane().add(panelFundos);
+        getContentPane().add(panelFundos);
         panelFundos.setLayout(null);
 
         btnEditarFundo = new JButton("Editar");

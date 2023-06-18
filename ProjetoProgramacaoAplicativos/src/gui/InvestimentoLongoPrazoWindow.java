@@ -10,8 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class InvestimentoLongoPrazoWindow {
-    private JFrame frame;
+public class InvestimentoLongoPrazoWindow extends JFrame{
+
     private JTable table;
 
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class InvestimentoLongoPrazoWindow {
             public void run() {
                 try {
                 	InvestimentoLongoPrazoWindow window = new InvestimentoLongoPrazoWindow();
-                    window.frame.setVisible(true);
+                    window.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -32,14 +32,14 @@ public class InvestimentoLongoPrazoWindow {
     }
 
     private void initialize() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 450, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+  
+        setBounds(100, 100, 450, 300);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 434, 261);
-        frame.getContentPane().add(panel);
+        getContentPane().add(panel);
         panel.setLayout(null);
 
         JButton btnCadastrar = new JButton("Cadastrar Investimento");
