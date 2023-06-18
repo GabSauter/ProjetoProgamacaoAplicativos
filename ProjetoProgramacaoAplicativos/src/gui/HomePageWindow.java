@@ -14,9 +14,6 @@ public class HomePageWindow extends JFrame {
 
 	private JFrame frame;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,16 +28,10 @@ public class HomePageWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public HomePageWindow() {
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 420, 470);
@@ -109,7 +100,6 @@ public class HomePageWindow extends JFrame {
 
 	private void btnFundoDespesas() {
 		FundoOcasionalWindow fundoOcasionalWindow = new FundoOcasionalWindow();
-	
 		fundoOcasionalWindow.setLocationRelativeTo(null);
 		fundoOcasionalWindow.setVisible(true);
 	}
@@ -118,35 +108,29 @@ public class HomePageWindow extends JFrame {
 		InvestimentoLongoPrazoWindow investimentoLongoPrazoWindow = new InvestimentoLongoPrazoWindow();
 		investimentoLongoPrazoWindow.setVisible(true);
 		investimentoLongoPrazoWindow.setLocationRelativeTo(null);
-
 	}
 
 	private void btnDespesasAction() {
 		DespesasWindow despesasWindow = new DespesasWindow();
 		despesasWindow.setVisible(true);
 		despesasWindow.setLocationRelativeTo(null);
-
 	}
 
 	private void btnRendimentoAction() {
 		RendimentoWindow rendimentoWindow = new RendimentoWindow();
 		rendimentoWindow.setVisible(true);
 		rendimentoWindow.setLocationRelativeTo(null);
-
 	}
 
 	private void btnRelatorioAction() {
 		RelatorioWindow relatorioWindow = new RelatorioWindow();
 		relatorioWindow.setLocationRelativeTo(null);
 		relatorioWindow.setVisible(true);
-		
 
 	}
 
 	private void btnResumoAction() {
-
 		ResumoWindow resumoWindow = new ResumoWindow();
-		
 		resumoWindow.setLocationRelativeTo(null);
 		resumoWindow.setVisible(true);
 

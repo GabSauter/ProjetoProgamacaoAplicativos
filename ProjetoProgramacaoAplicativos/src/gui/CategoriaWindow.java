@@ -31,7 +31,7 @@ public class CategoriaWindow extends JFrame {
 	private JLabel lblCategoriasCadastradas;
 	private JComboBox<Categoria> comboBox;
 	private JLabel lblCadastrarOuEditar;
-	
+
 	private List<Categoria> categorias;
 
 	public static void main(String[] args) {
@@ -46,12 +46,12 @@ public class CategoriaWindow extends JFrame {
 			}
 		});
 	}
-	
+
 	public CategoriaWindow() {
 		this.initComponents();
 		this.carregarComboBox();
 	}
-	
+
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 428, 217);
@@ -60,28 +60,28 @@ public class CategoriaWindow extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
 		lblCadastrarOuEditar.setBounds(12, 20, 255, 15);
 		contentPane.add(lblCadastrarOuEditar);
-		
+
 		comboBox = new JComboBox<Categoria>();
 		comboBox.setBounds(195, 47, 209, 19);
 		contentPane.add(comboBox);
-		
+
 		lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
 		lblCategoriasCadastradas.setBounds(12, 47, 177, 15);
 		contentPane.add(lblCategoriasCadastradas);
-		
+
 		textField = new JTextField();
 		textField.setBounds(195, 78, 209, 19);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		lblNome = new JLabel("Nome:");
 		lblNome.setBounds(137, 80, 52, 15);
 		contentPane.add(lblNome);
-		
+
 		btnCadastrar = new JButton("Cadastrar");
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ public class CategoriaWindow extends JFrame {
 		});
 		btnCadastrar.setBounds(12, 135, 127, 25);
 		contentPane.add(btnCadastrar);
-		
+
 		btnEditar = new JButton("Editar");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,7 +99,7 @@ public class CategoriaWindow extends JFrame {
 		});
 		btnEditar.setBounds(151, 135, 124, 25);
 		contentPane.add(btnEditar);
-		
+
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -113,22 +113,27 @@ public class CategoriaWindow extends JFrame {
 	private void btnExcluirAction() {
 		Categoria categoria = new Categoria();
 		categoria = (Categoria) comboBox.getSelectedItem();
-		
+
 		if (categoria instanceof Categoria) {
-			int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
-			
+			int resposta = JOptionPane.showConfirmDialog(this,
+					"Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação",
+					JOptionPane.YES_NO_OPTION);
+
 			if (resposta == JOptionPane.YES_OPTION) {
 				try {
-			        new CategoriaService().excluir(categoria);
-			        JOptionPane.showMessageDialog(this, "Categoria excluida", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-			        carregarComboBox();
-			    } catch (SQLException | IOException e) {
-			        e.printStackTrace();
-			        JOptionPane.showMessageDialog(this, "Erro ao excluir categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
-			    }
+					new CategoriaService().excluir(categoria);
+					JOptionPane.showMessageDialog(this, "Categoria excluida", "Sucesso",
+							JOptionPane.INFORMATION_MESSAGE);
+					carregarComboBox();
+				} catch (SQLException | IOException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(this, "Erro ao excluir categoria.", "Erro",
+							JOptionPane.ERROR_MESSAGE);
+				}
 			}
-		}else {
-			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para excluir.", "Aviso", JOptionPane.WARNING_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para excluir.", "Aviso",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
@@ -136,36 +141,42 @@ public class CategoriaWindow extends JFrame {
 		Categoria categoria = new Categoria();
 		categoria = (Categoria) comboBox.getSelectedItem();
 		String novoNomeCategoria = textField.getText();
-		
+
 		if (categoria instanceof Categoria) {
-			int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o nome da categoria: " + categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação", JOptionPane.YES_NO_OPTION);
-			
+			int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o nome da categoria: "
+					+ categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação",
+					JOptionPane.YES_NO_OPTION);
+
 			if (resposta == JOptionPane.YES_OPTION) {
 				try {
 					new CategoriaService().atualizar(novoNomeCategoria, categoria);
-					JOptionPane.showMessageDialog(this, "Categoria editada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Categoria editada com sucesso!", "Sucesso",
+							JOptionPane.INFORMATION_MESSAGE);
 					carregarComboBox();
 				} catch (SQLException | IOException e) {
 					e.printStackTrace();
 					JOptionPane.showMessageDialog(this, "Erro ao editar categoria.", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
-		}else {
-			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para editar.", "Aviso", JOptionPane.WARNING_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para editar.", "Aviso",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
 	private void btnCadastrarAction() {
 		Categoria categoria = new Categoria();
-		
-		if(textField.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Por favor digite o nome da categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
-		}else {
+
+		if (textField.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Por favor digite o nome da categoria.", "Aviso",
+					JOptionPane.WARNING_MESSAGE);
+		} else {
 			categoria.setNome(textField.getText());
-			
+
 			try {
 				new CategoriaService().cadastrar(categoria);
-				JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso",
+						JOptionPane.INFORMATION_MESSAGE);
 				textField.setText("");
 				carregarComboBox();
 			} catch (SQLException | IOException e) {
@@ -174,18 +185,18 @@ public class CategoriaWindow extends JFrame {
 			}
 		}
 	}
-	
+
 	private void carregarComboBox() {
-		
+
 		try {
-			
+
 			this.categorias = new CategoriaService().buscarTodos();
-			
+
 			this.comboBox.removeAllItems();
-			for(Categoria categoria : categorias) {
+			for (Categoria categoria : categorias) {
 				this.comboBox.addItem(categoria);
 			}
-			
+
 		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}

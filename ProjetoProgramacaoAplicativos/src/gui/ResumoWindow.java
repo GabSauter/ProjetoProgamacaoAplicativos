@@ -25,9 +25,6 @@ public class ResumoWindow extends JFrame {
 	private JScrollPane scrollPaneMensal;
 	private JLabel lblResumoMensal;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,12 +38,10 @@ public class ResumoWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public ResumoWindow() {
 		this.initComponents();
 	}
+
 	private void initComponents() {
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -56,49 +51,38 @@ public class ResumoWindow extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		lblResumoMensal = new JLabel("Resumo Mensal");
 		lblResumoMensal.setBounds(12, 12, 128, 15);
 		contentPane.add(lblResumoMensal);
-		
+
 		scrollPaneMensal = new JScrollPane();
 		scrollPaneMensal.setBounds(12, 39, 796, 143);
 		contentPane.add(scrollPaneMensal);
-		
+
 		tableMensal = new JTable();
-		tableMensal.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Descrição", "Total Mensal"
-			}
-		));
+		tableMensal.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Descrição", "Total Mensal" }));
 		scrollPaneMensal.setViewportView(tableMensal);
-		
+
 		lblSelecioneOMs = new JLabel("Selecione o mês desejado");
 		lblSelecioneOMs.setBounds(448, 12, 185, 15);
 		contentPane.add(lblSelecioneOMs);
-		
+
 		comboBox = new JComboBox();
 		comboBox.setBounds(641, 9, 167, 20);
 		contentPane.add(comboBox);
-		
+
 		lblResumoAnual = new JLabel("Resumo Anual");
 		lblResumoAnual.setBounds(12, 194, 111, 15);
 		contentPane.add(lblResumoAnual);
-		
+
 		scrollPaneAnual = new JScrollPane();
 		scrollPaneAnual.setBounds(12, 221, 796, 207);
 		contentPane.add(scrollPaneAnual);
-		
+
 		tableAnual = new JTable();
-		tableAnual.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Descrição","Mensal(x12)", "Ocasional","Total Anual"
-			}
-		));
+		tableAnual.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Descrição", "Mensal(x12)", "Ocasional", "Total Anual" }));
 		scrollPaneAnual.setViewportView(tableAnual);
 	}
 }
