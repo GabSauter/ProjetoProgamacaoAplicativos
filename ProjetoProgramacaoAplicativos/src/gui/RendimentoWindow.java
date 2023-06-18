@@ -40,7 +40,7 @@ import service.RendimentoService;
 
 public class  RendimentoWindow extends JFrame{
 
-    private JFrame frame;
+  
     private JTable table;
     private JTextField txtRendimento;
     private JTextField txtValor;
@@ -67,7 +67,7 @@ public class  RendimentoWindow extends JFrame{
 
 	public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
 		RendimentoWindow window = new RendimentoWindow();
-		window.frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
+		window.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
 	}); }
 	
 	/**
@@ -81,18 +81,17 @@ public class  RendimentoWindow extends JFrame{
         this.carregaTabelaRendimento();
     }
 
-
-	private void initComponents() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 570, 433);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+    private void initComponents() {
+   
+        setBounds(100, 100, 570, 433);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
         
         panelCadastro = new JPanel();
         panelCadastro.setBorder(new TitledBorder(null, "Cadastrar Rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panelCadastro.setLayout(null);
         panelCadastro.setBounds(10, 12, 548, 170);
-        frame.getContentPane().add(panelCadastro);
+        getContentPane().add(panelCadastro);
         
         lblRendimento = new JLabel("Rendimento:");
         lblRendimento.setBounds(12, 53, 99, 14);
@@ -196,7 +195,7 @@ public class  RendimentoWindow extends JFrame{
         panelRendimento = new JPanel();
         panelRendimento.setBorder(new TitledBorder(null, "Rendimentos cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         panelRendimento.setBounds(10, 188, 548, 197);
-        frame.getContentPane().add(panelRendimento);
+        getContentPane().add(panelRendimento);
         panelRendimento.setLayout(null);
 
         btnEditarRendimento = new JButton("Editar");

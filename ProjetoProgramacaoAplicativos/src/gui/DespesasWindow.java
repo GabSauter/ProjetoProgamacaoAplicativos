@@ -38,7 +38,8 @@ import java.awt.Color;
 
 public class  DespesasWindow extends JFrame {
 
-    private JFrame frame;
+
+  
     private JTable table;
     private JTextField txtDespesa;
     private JTextField txtValor;
@@ -68,7 +69,7 @@ public class  DespesasWindow extends JFrame {
 	 */
 	  public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
 	  DespesasWindow window = new DespesasWindow();
-	  window.frame.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
+	  window.setVisible(true); } catch (Exception e) { e.printStackTrace(); }
 	  }); }
 	 
 /**
@@ -89,16 +90,16 @@ public class  DespesasWindow extends JFrame {
 		}
     }
     private void initComponents() {
-        frame = new JFrame();
-        frame.setBounds(100, 100, 570, 433);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(null);
+  
+        setBounds(100, 100, 570, 433);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        getContentPane().setLayout(null);
         
         panelCadastro = new JPanel();
         panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelCadastro.setLayout(null);
         panelCadastro.setBounds(10, 12, 548, 170);
-        frame.getContentPane().add(panelCadastro);
+        getContentPane().add(panelCadastro);
         
         lblDespesa = new JLabel("Despesa:");
         lblDespesa.setBounds(12, 53, 99, 14);
@@ -182,7 +183,7 @@ public class  DespesasWindow extends JFrame {
         panelDespesas = new JPanel();
         panelDespesas.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
         panelDespesas.setBounds(10, 188, 548, 197);
-        frame.getContentPane().add(panelDespesas);
+        getContentPane().add(panelDespesas);
         panelDespesas.setLayout(null);
 
         btnEditarDespesa = new JButton("Editar");
