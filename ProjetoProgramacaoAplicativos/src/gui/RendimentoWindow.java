@@ -1,26 +1,8 @@
 package gui;
 
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-
-import entities.Categoria;
-import entities.Rendimento;
-import service.CategoriaService;
-import service.RendimentoService;
-
-import javax.swing.border.TitledBorder;
 import java.awt.Font;
-import javax.swing.JRadioButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -28,9 +10,33 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-import java.awt.event.ActionEvent;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
+import entities.Categoria;
+import entities.Rendimento;
+import service.CategoriaService;
+import service.RendimentoService;
 
 public class  RendimentoWindow extends JFrame{
 
@@ -53,9 +59,11 @@ public class  RendimentoWindow extends JFrame{
     private JPanel panelTipoRendimento;
     private JRadioButton rdbtnOcasional;
     private JRadioButton rdbtnMensal;
-    
+    private JFormattedTextField txtData;
     private List<Categoria> categorias;
     private List<Rendimento> rendimentos;
+	private MaskFormatter mascaraData;
+    
 
 	public static void main(String[] args) { EventQueue.invokeLater(() -> { try {
 		RendimentoWindow window = new RendimentoWindow();
@@ -67,11 +75,11 @@ public class  RendimentoWindow extends JFrame{
 	 * @wbp.parser.entryPoint
 	 */
     public RendimentoWindow() {
+    	this.criarMascaraData();
         this.initComponents();
         this.carregarComboBox();
         this.carregaTabelaRendimento();
     }
-    
 
     private void initComponents() {
    
@@ -161,6 +169,15 @@ public class  RendimentoWindow extends JFrame{
         
         rdbtnOcasional.setSelected(true);
         
+        JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+        lblDatammaaaa.setBounds(269, 79, 123, 15);
+        panelCadastro.add(lblDatammaaaa);
+        
+        txtData = new JFormattedTextField(mascaraData);
+        txtData.setBounds(397, 77, 139, 19);
+        panelCadastro.add(txtData);
+        txtData.setColumns(10);
+        
         rdbtnMensal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,12 +231,19 @@ public class  RendimentoWindow extends JFrame{
             new Object[][] {
             },
             new String[] {
-                "Categoria", "Rendimento","Mensal", "Ocasional", "Total Anual"
+                "Categoria", "Rendimento","Data Inicial","Mensal", "Ocasional", "Total Anual"
             }
         ));
         scrollPane.setViewportView(table);
     }
-    
+	public void criarMascaraData() {
+		try {
+			this.mascaraData = new MaskFormatter("##/####");
+		} catch(ParseException e) {
+			System.out.println("ERRO: " + e.getMessage());
+		}
+	}
+	
     private void btnExcluirRendimentoAction() {
         int coluna = table.getSelectedRow();
 
@@ -261,34 +285,37 @@ public class  RendimentoWindow extends JFrame{
     		
     		if (categoria instanceof Categoria) {
     			if(!(txtRendimento.getText().toString().equals("") || txtValor.getText().toString().equals(""))) {
-    				
-    				Rendimento rendimentoEditado = new Rendimento();
-    				rendimentoEditado.setId(rendimento.getId());
-    				rendimentoEditado.setCategoria(categoria);
-    				rendimentoEditado.setRendimento(txtRendimento.getText());
-    				
-    				try {
-    					
-    					if(rdbtnMensal.isSelected()){
-    						rendimentoEditado.setMensal(Double.parseDouble(txtValor.getText()));
-    						rendimentoEditado.setOcasional(0.0);
-    						rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText())*12);
-    					}
-    					if(rdbtnOcasional.isSelected()){
-    						rendimentoEditado.setOcasional(Double.parseDouble(txtValor.getText()));
-    						rendimentoEditado.setMensal(0.0);
-    						rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText()));
-    					}
-    					
-    					new RendimentoService().atualizar(rendimentoEditado);
-    					JOptionPane.showMessageDialog(this, "Rendimento editado.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-    					carregaTabelaRendimento();
-    				} catch (NumberFormatException e) {
-    				    JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
-    				} catch (SQLException | IOException e) {
-    					e.printStackTrace();
-    					JOptionPane.showMessageDialog(this, "Erro ao editar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+    				if(isDateValid(txtData.getText())) {
+	    				Rendimento rendimentoEditado = new Rendimento();
+	    				rendimentoEditado.setId(rendimento.getId());
+	    				rendimentoEditado.setCategoria(categoria);
+	    				rendimentoEditado.setRendimento(txtRendimento.getText());
+	    				rendimentoEditado.setData(txtData.getText());
+	    				try {
+	    					
+	    					if(rdbtnMensal.isSelected()){
+	    						rendimentoEditado.setMensal(Double.parseDouble(txtValor.getText()));
+	    						rendimentoEditado.setOcasional(0.0);
+	    						rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText())*12);
+	    					}
+	    					if(rdbtnOcasional.isSelected()){
+	    						rendimentoEditado.setOcasional(Double.parseDouble(txtValor.getText()));
+	    						rendimentoEditado.setMensal(0.0);
+	    						rendimentoEditado.setTotalAno(Double.parseDouble(txtValor.getText()));
+	    					}
+	    					
+	    					new RendimentoService().atualizar(rendimentoEditado);
+	    					JOptionPane.showMessageDialog(this, "Rendimento editado.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+	    					carregaTabelaRendimento();
+	    				} catch (NumberFormatException e) {
+	    				    JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
+	    				} catch (SQLException | IOException e) {
+	    					e.printStackTrace();
+	    					JOptionPane.showMessageDialog(this, "Erro ao editar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+	    				}
     				}
+    				else
+    					JOptionPane.showMessageDialog(this, "Por favor insira uma data válida.", "Aviso", JOptionPane.WARNING_MESSAGE);
     			}else {
     				JOptionPane.showMessageDialog(this, "Por favor insira valores em todos os campos para editar uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
     			}
@@ -305,43 +332,67 @@ public class  RendimentoWindow extends JFrame{
 		
 		if (categoria instanceof Categoria) {
 			if(!(txtRendimento.getText().toString().equals("") || txtValor.getText().toString().equals(""))) {
-				Rendimento rendimento = new Rendimento();
-				rendimento.setCategoria(categoria);
-				rendimento.setRendimento(txtRendimento.getText());
-				
-				try {
-					if(rdbtnMensal.isSelected()){
-						rendimento.setMensal(Double.parseDouble(txtValor.getText()));
-						rendimento.setOcasional(0.0);
-						rendimento.setTotalAno(Double.parseDouble(txtValor.getText())*12);
-					}
-					if(rdbtnOcasional.isSelected()){
-						rendimento.setOcasional(Double.parseDouble(txtValor.getText()));
-						rendimento.setMensal(0.0);
-						rendimento.setTotalAno(Double.parseDouble(txtValor.getText()));
-					}
+				if(isDateValid(txtData.getText())) {
+					Rendimento rendimento = new Rendimento();
+					rendimento.setCategoria(categoria);
+					rendimento.setRendimento(txtRendimento.getText());
+					rendimento.setData(txtData.getText());
+					try {
+						if(rdbtnMensal.isSelected()){
+							rendimento.setMensal(Double.parseDouble(txtValor.getText()));
+							rendimento.setOcasional(0.0);
+							rendimento.setTotalAno(Double.parseDouble(txtValor.getText())*12);
+						}
+						if(rdbtnOcasional.isSelected()){
+							rendimento.setOcasional(Double.parseDouble(txtValor.getText()));
+							rendimento.setMensal(0.0);
+							rendimento.setTotalAno(Double.parseDouble(txtValor.getText()));
+						}
+						
+						new RendimentoService().cadastrar(rendimento);
 					
-					new RendimentoService().cadastrar(rendimento);
-					//JOptionPane.showMessageDialog(this, "Rendimento cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-					carregaTabelaRendimento();
-				} catch (NumberFormatException e) {
-				    JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
-				}catch (SQLException | IOException e) {
-					e.printStackTrace();
-					JOptionPane.showMessageDialog(this, "Erro ao cadastrar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
-				} 
-			}else {
+						//JOptionPane.showMessageDialog(this, "Rendimento cadastrado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						carregaTabelaRendimento();
+					} catch (NumberFormatException e) {
+					    JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro", JOptionPane.ERROR_MESSAGE);
+					} catch (SQLException | IOException e) {
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(this, "Erro ao cadastrar Rendimento.", "Erro", JOptionPane.ERROR_MESSAGE);
+					}
+				}else
+					JOptionPane.showMessageDialog(this, "Por favor insira uma data válida.", "Aviso", JOptionPane.WARNING_MESSAGE);				
+			}else
 				JOptionPane.showMessageDialog(this, "Por favor insira valores em todos os campos para cadastrar uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
-			}
-		}else {
+		}else 
 			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada, por favor cadastre uma categoria.", "Aviso", JOptionPane.WARNING_MESSAGE);
-		}
-		
 	}
-	
+
+	public static boolean isDateValid(String dataString)
+	{
+	        SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+	        sdf.setLenient(false);
+
+	        try {
+	            Date data = sdf.parse(dataString);
+
+	            Calendar cal = Calendar.getInstance();
+	            cal.setTime(data);
+	            int mes = cal.get(Calendar.MONTH);
+	            int ano = cal.get(Calendar.YEAR);
+
+	            if (mes >= 0 && mes <= 11 && ano >= 1900 && ano <= 9999) {
+	                return true;
+	            } else {
+	                return false;
+	            }
+	        } catch (ParseException e) {
+	            return false;
+	        }
+	}
 	private void btnLimparCamposAction() {
 		txtRendimento.setText("");
 		txtValor.setText("");
+		txtData.setText("");
 	}
 
 	private void btnAddCategoriaAction() {
@@ -384,6 +435,7 @@ public class  RendimentoWindow extends JFrame{
 				model.addRow(new Object[] {
 						rendimento.getCategoria().getNome(),
 						rendimento.getRendimento(),
+						rendimento.getData(),
 						rendimento.getMensal(),
 						rendimento.getOcasional(),
 						rendimento.getTotalAno()
@@ -409,9 +461,10 @@ public class  RendimentoWindow extends JFrame{
 		
 		txtRendimento.setText(model.getValueAt(coluna, 1).toString());
 		
-		Boolean isMensal = (Double.parseDouble(model.getValueAt(coluna, 2).toString()) > Double.parseDouble(model.getValueAt(coluna, 3).toString()));
-		String valor =  isMensal ? model.getValueAt(coluna, 2).toString() : model.getValueAt(coluna, 3).toString();
+		Boolean isMensal = (Double.parseDouble(model.getValueAt(coluna, 3).toString()) > Double.parseDouble(model.getValueAt(coluna, 4).toString()));
+		String valor =  isMensal ? model.getValueAt(coluna, 3).toString() : model.getValueAt(coluna, 4).toString();
 		txtValor.setText(valor);
+		txtData.setText(model.getValueAt(coluna, 2).toString());
 		
 		if(isMensal) {
 			rdbtnMensal.setSelected(true);
