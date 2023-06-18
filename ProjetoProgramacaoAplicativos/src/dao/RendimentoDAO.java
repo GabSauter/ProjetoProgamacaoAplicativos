@@ -33,6 +33,7 @@ public class RendimentoDAO {
 			st.setDouble(5, rendimento.getTotalAno());
 			st.setString(6, rendimento.getData());
 			
+			
 			st.executeUpdate();
 			
 		} finally {
