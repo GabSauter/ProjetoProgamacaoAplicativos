@@ -74,11 +74,7 @@ public class DespesasWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
+
 	public DespesasWindow() {
 		this.criarMascaraData();
 		this.initComponents();
