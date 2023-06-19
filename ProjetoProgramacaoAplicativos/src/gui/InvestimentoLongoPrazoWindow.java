@@ -35,23 +35,20 @@ import service.InvestimentoService;
 
 public class InvestimentoLongoPrazoWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private JTable table;
 	private JTextField txtInvestimento;
 	private JTextField txtValor;
-	private JPanel panelCadastro;
-	private JLabel lblInvestimento;
 	private JButton btnCadastrarInvestimento;
 	private JButton btnLimparCampos;
-	private JLabel lblValor;
-	private JPanel panelTipoInvestimento;
 	private JRadioButton rdbtnOcasional;
 	private JRadioButton rdbtnMensal;
-	private JPanel panelInvestimento;
 	private JButton btnEditarInvestimento;
 	private JButton btnExcluirInvestimento;
-	private JScrollPane scrollPane;
+	
 	private List<Investimento> investimentos;
-	private JLabel lblDatammaaaa;
+	
 	private JFormattedTextField txtData;
 	private MaskFormatter mascaraData;
 
@@ -66,11 +63,6 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
 	public InvestimentoLongoPrazoWindow() {
 		this.criarMascaraData();
 		this.initComponents();
@@ -82,7 +74,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		panelCadastro = new JPanel();
+		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  investimento a longo prazo",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -90,7 +82,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		panelCadastro.setBounds(10, 12, 548, 145);
 		getContentPane().add(panelCadastro);
 
-		lblInvestimento = new JLabel("Investimento:");
+		JLabel lblInvestimento = new JLabel("Investimento:");
 		lblInvestimento.setBounds(12, 28, 99, 14);
 		panelCadastro.add(lblInvestimento);
 
@@ -102,7 +94,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		btnCadastrarInvestimento = new JButton("Cadastrar");
 		btnCadastrarInvestimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnCadastrarActionPerformed();
+				btnCadastrarAction();
 			}
 		});
 		btnCadastrarInvestimento.setBounds(269, 110, 105, 23);
@@ -111,13 +103,13 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		btnLimparCampos = new JButton("Limpar campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnLimparCamposActionPerformed();
+				btnLimparCamposAction();
 			}
 		});
 		btnLimparCampos.setBounds(386, 110, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		lblValor = new JLabel("Valor:");
+		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 54, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -126,7 +118,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		txtValor.setBounds(109, 52, 150, 20);
 		panelCadastro.add(txtValor);
 
-		panelTipoInvestimento = new JPanel();
+		JPanel panelTipoInvestimento = new JPanel();
 
 		panelTipoInvestimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
 				"Tipo de Investimento", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -153,7 +145,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		rdbtnMensal.setBounds(136, 19, 89, 23);
 		panelTipoInvestimento.add(rdbtnMensal);
 
-		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(269, 54, 117, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -162,7 +154,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		panelCadastro.add(txtData);
 		txtData.setColumns(10);
 
-		panelInvestimento = new JPanel();
+		JPanel panelInvestimento = new JPanel();
 		panelInvestimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
 				"Investimentos Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelInvestimento.setBounds(10, 169, 548, 186);
@@ -172,7 +164,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		btnEditarInvestimento = new JButton("Editar");
 		btnEditarInvestimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnEditarActionPerformed();
+				btnEditarAction();
 			}
 		});
 		btnEditarInvestimento.setBounds(333, 162, 100, 23);
@@ -187,7 +179,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		btnExcluirInvestimento.setBounds(438, 162, 100, 23);
 		panelInvestimento.add(btnExcluirInvestimento);
 
-		scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelInvestimento.add(scrollPane);
 
@@ -203,37 +195,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		scrollPane.setViewportView(table);
 	}
 
-	public void criarMascaraData() {
-		try {
-			this.mascaraData = new MaskFormatter("##/####");
-		} catch (ParseException e) {
-			System.out.println("ERRO: " + e.getMessage());
-		}
-	}
-
-	public static boolean isDateValid(String dataString) {
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-		sdf.setLenient(false);
-
-		try {
-			Date data = sdf.parse(dataString);
-
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(data);
-			int mes = cal.get(Calendar.MONTH);
-			int ano = cal.get(Calendar.YEAR);
-
-			if (mes >= 0 && mes <= 11 && ano >= 1900 && ano <= 9999) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (ParseException e) {
-			return false;
-		}
-	}
-
-	protected void btnExcluirInvestimentoAction() {
+	private void btnExcluirInvestimentoAction() {
 		int coluna = table.getSelectedRow();
 
 		if (coluna == -1) {
@@ -261,7 +223,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 
 	}
 
-	protected void btnEditarActionPerformed() {
+	private void btnEditarAction() {
 		int coluna = table.getSelectedRow();
 
 		if (coluna == -1) {
@@ -318,13 +280,13 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		}
 	}
 
-	protected void btnLimparCamposActionPerformed() {
+	private void btnLimparCamposAction() {
 		txtInvestimento.setText("");
 		txtValor.setText("");
 		txtData.setText("");
 	}
 
-	protected void tableMouseClickedAction() {
+	private void tableMouseClickedAction() {
 		int coluna = table.getSelectedRow();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 
@@ -346,7 +308,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 
 	}
 
-	protected void btnCadastrarActionPerformed() {
+	private void btnCadastrarAction() {
 		Investimento investimento = new Investimento();
 		investimento.setInvestimento(this.txtInvestimento.getText());
 		if (!(txtInvestimento.getText().toString().equals("") || txtValor.getText().toString().equals(""))) {
@@ -400,6 +362,36 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 			JOptionPane.showMessageDialog(this, "Erro ao carregar investimentos a longo prazo.", "Erro",
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
+		}
+	}
+	
+	private void criarMascaraData() {
+		try {
+			this.mascaraData = new MaskFormatter("##/####");
+		} catch (ParseException e) {
+			System.out.println("ERRO: " + e.getMessage());
+		}
+	}
+
+	private static boolean isDateValid(String dataString) {
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+		sdf.setLenient(false);
+
+		try {
+			Date data = sdf.parse(dataString);
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(data);
+			int mes = cal.get(Calendar.MONTH);
+			int ano = cal.get(Calendar.YEAR);
+
+			if (mes >= 0 && mes <= 11 && ano >= 1900 && ano <= 9999) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (ParseException e) {
+			return false;
 		}
 	}
 }

@@ -2,7 +2,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -36,42 +35,23 @@ import service.FundoOcasionalService;
 
 public class FundoOcasionalWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private JTable table;
 	private JTextField txtFundo;
 	private JTextField txtValor;
-	private JPanel panelCadastro;
-	private JLabel lblDespesa;
 	private JButton btnCadastrarFundo;
 	private JButton btnLimparCampos;
-	private JLabel lblValor;
-	private JPanel panelTipoFundo;
 	private JRadioButton rdbtnOcasional;
 	private JRadioButton rdbtnMensal;
-	private JPanel panelFundos;
 	private JButton btnEditarFundo;
 	private JButton btnExcluirFundo;
-	private JScrollPane scrollPane;
+
 	private List<FundoOcasional> fundos;
-	private JLabel lblDatammaaaa;
+
 	private JFormattedTextField txtData;
 	private MaskFormatter mascaraData;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(() -> {
-			try {
-				FundoOcasionalWindow window = new FundoOcasionalWindow();
-				window.setVisible(true);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
 	public FundoOcasionalWindow() {
 		this.criarMascaraData();
 		this.initComponents();
@@ -83,7 +63,7 @@ public class FundoOcasionalWindow extends JFrame {
 		setBounds(100, 100, 570, 390);
 		getContentPane().setLayout(null);
 
-		panelCadastro = new JPanel();
+		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  fundo de despesas ocasionais",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -91,9 +71,9 @@ public class FundoOcasionalWindow extends JFrame {
 		panelCadastro.setBounds(10, 12, 548, 145);
 		getContentPane().add(panelCadastro);
 
-		lblDespesa = new JLabel("Despesa:");
-		lblDespesa.setBounds(12, 28, 99, 14);
-		panelCadastro.add(lblDespesa);
+		JLabel lblFundo = new JLabel("Fundo:");
+		lblFundo.setBounds(12, 28, 99, 14);
+		panelCadastro.add(lblFundo);
 
 		txtFundo = new JTextField();
 		txtFundo.setColumns(10);
@@ -103,7 +83,7 @@ public class FundoOcasionalWindow extends JFrame {
 		btnCadastrarFundo = new JButton("Cadastrar");
 		btnCadastrarFundo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnCadastrarActionPerformed();
+				btnCadastrarAction();
 			}
 		});
 		btnCadastrarFundo.setBounds(269, 110, 105, 23);
@@ -112,13 +92,13 @@ public class FundoOcasionalWindow extends JFrame {
 		btnLimparCampos = new JButton("Limpar campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnLimparCamposActionPerformed();
+				btnLimparCamposAction();
 			}
 		});
 		btnLimparCampos.setBounds(386, 110, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		lblValor = new JLabel("Valor:");
+		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 54, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -127,7 +107,7 @@ public class FundoOcasionalWindow extends JFrame {
 		txtValor.setBounds(109, 52, 150, 20);
 		panelCadastro.add(txtValor);
 
-		panelTipoFundo = new JPanel();
+		JPanel panelTipoFundo = new JPanel();
 
 		panelTipoFundo.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -153,7 +133,7 @@ public class FundoOcasionalWindow extends JFrame {
 		rdbtnMensal.setBounds(136, 19, 89, 23);
 		panelTipoFundo.add(rdbtnMensal);
 
-		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(269, 54, 117, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -162,7 +142,7 @@ public class FundoOcasionalWindow extends JFrame {
 		panelCadastro.add(txtData);
 		txtData.setColumns(10);
 
-		panelFundos = new JPanel();
+		JPanel panelFundos = new JPanel();
 		panelFundos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fundos Cadastrados",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelFundos.setBounds(10, 169, 548, 186);
@@ -172,7 +152,7 @@ public class FundoOcasionalWindow extends JFrame {
 		btnEditarFundo = new JButton("Editar");
 		btnEditarFundo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnEditarActionPerformed();
+				btnEditarAction();
 			}
 		});
 		btnEditarFundo.setBounds(333, 162, 100, 23);
@@ -181,13 +161,13 @@ public class FundoOcasionalWindow extends JFrame {
 		btnExcluirFundo = new JButton("Excluir");
 		btnExcluirFundo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnExcluirFundoActionPerformed();
+				btnExcluirFundoAction();
 			}
 		});
 		btnExcluirFundo.setBounds(438, 162, 100, 23);
 		panelFundos.add(btnExcluirFundo);
 
-		scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelFundos.add(scrollPane);
 
@@ -203,7 +183,7 @@ public class FundoOcasionalWindow extends JFrame {
 		scrollPane.setViewportView(table);
 	}
 
-	public void criarMascaraData() {
+	private void criarMascaraData() {
 		try {
 			this.mascaraData = new MaskFormatter("##/####");
 		} catch (ParseException e) {
@@ -211,7 +191,7 @@ public class FundoOcasionalWindow extends JFrame {
 		}
 	}
 
-	public static boolean isDateValid(String dataString) {
+	private static boolean isDateValid(String dataString) {
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
 		sdf.setLenient(false);
 
@@ -233,7 +213,7 @@ public class FundoOcasionalWindow extends JFrame {
 		}
 	}
 
-	protected void btnExcluirFundoActionPerformed() {
+	private void btnExcluirFundoAction() {
 		int coluna = table.getSelectedRow();
 
 		if (coluna == -1) {
@@ -262,7 +242,7 @@ public class FundoOcasionalWindow extends JFrame {
 
 	}
 
-	protected void btnEditarActionPerformed() {
+	private void btnEditarAction() {
 		int coluna = table.getSelectedRow();
 
 		if (coluna == -1) {
@@ -317,13 +297,13 @@ public class FundoOcasionalWindow extends JFrame {
 		}
 	}
 
-	protected void btnLimparCamposActionPerformed() {
+	private void btnLimparCamposAction() {
 		txtFundo.setText("");
 		txtValor.setText("");
 		txtData.setText("");
 	}
 
-	protected void tableMouseClickedAction() {
+	private void tableMouseClickedAction() {
 		int coluna = table.getSelectedRow();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 
@@ -345,7 +325,7 @@ public class FundoOcasionalWindow extends JFrame {
 
 	}
 
-	protected void btnCadastrarActionPerformed() {
+	private void btnCadastrarAction() {
 		FundoOcasional fundo = new FundoOcasional();
 		fundo.setFundoOcasional(this.txtFundo.getText());
 		if (!(txtFundo.getText().toString().equals("") || txtValor.getText().toString().equals(""))) {
