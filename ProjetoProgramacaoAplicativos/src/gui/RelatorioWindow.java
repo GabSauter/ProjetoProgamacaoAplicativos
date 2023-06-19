@@ -10,6 +10,12 @@ import java.awt.event.ActionEvent;
 
 public class RelatorioWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	private JCheckBox chkOrganizacao;
+	private JCheckBox chkRelatorioMensal;
+	private JCheckBox chkRelatorioAnual;
+	private JButton btnGerarRelatorio;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -25,10 +31,10 @@ public class RelatorioWindow extends JFrame {
 	}
 
 	public RelatorioWindow() {
-		initialize();
+		initComponents();
 	}
 
-	private void initialize() {
+	private void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -38,39 +44,55 @@ public class RelatorioWindow extends JFrame {
 		getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JCheckBox chkRelatorioAnual = new JCheckBox("Relatório Anual");
+		chkRelatorioAnual = new JCheckBox("Relatório Anual");
 		chkRelatorioAnual.setBounds(10, 11, 150, 23);
 		panel.add(chkRelatorioAnual);
 
-		JCheckBox chkRelatorioMensal = new JCheckBox("Relatório Mensal");
+		chkRelatorioMensal = new JCheckBox("Relatório Mensal");
 		chkRelatorioMensal.setBounds(10, 45, 150, 23);
 		panel.add(chkRelatorioMensal);
 
-		JCheckBox chkOrganizacao = new JCheckBox("Organização");
+		chkOrganizacao = new JCheckBox("Organização");
 		chkOrganizacao.setBounds(10, 79, 150, 23);
 		panel.add(chkOrganizacao);
 
-		JButton btnGerarRelatorio = new JButton("Gerar Relatório");
+		btnGerarRelatorio = new JButton("Gerar Relatório");
 		btnGerarRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean relatorioAnual = chkRelatorioAnual.isSelected();
-				boolean relatorioMensal = chkRelatorioMensal.isSelected();
-				boolean organizacao = chkOrganizacao.isSelected();
-
-				if (relatorioAnual) {
-					// Lógica para gerar relatório anual
-				}
-
-				if (relatorioMensal) {
-					// Lógica para gerar relatório mensal
-				}
-
-				if (organizacao) {
-					// Lógica para organização
-				}
+				btnGerarRelatorioAction();
 			}
 		});
 		btnGerarRelatorio.setBounds(10, 113, 150, 23);
 		panel.add(btnGerarRelatorio);
+	}
+
+	private void btnGerarRelatorioAction() {
+		boolean relatorioAnual = chkRelatorioAnual.isSelected();
+		boolean relatorioMensal = chkRelatorioMensal.isSelected();
+		boolean organizacao = chkOrganizacao.isSelected();
+
+		if (relatorioAnual) {
+			gerarRelatorioAnual();
+		}
+
+		if (relatorioMensal) {
+			gerarRelatorioMensal();
+		}
+
+		if (organizacao) {
+			gerarRelatorioOrganizado();
+		}
+	}
+
+	private void gerarRelatorioAnual() {
+
+	}
+
+	private void gerarRelatorioMensal() {
+
+	}
+
+	private void gerarRelatorioOrganizado() {
+
 	}
 }

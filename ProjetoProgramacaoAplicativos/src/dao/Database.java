@@ -10,9 +10,9 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class Database {
-	
+
 	private static Connection conn = null;
-	
+
 	private static Properties carregarPropriedades() throws IOException {
 
 		FileInputStream propriedadesBanco = null;
@@ -23,7 +23,7 @@ public class Database {
 
 		return props;
 	}
-	
+
 	public static Connection conectar() throws SQLException, IOException {
 		if (conn == null) {
 
@@ -34,10 +34,9 @@ public class Database {
 
 		return conn;
 	}
-	
+
 	public static void desconectar() throws SQLException {
 		if (conn != null) {
-
 			conn.close();
 			conn = null;
 		}

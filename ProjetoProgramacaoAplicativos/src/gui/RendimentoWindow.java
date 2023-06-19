@@ -40,28 +40,25 @@ import service.RendimentoService;
 
 public class RendimentoWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	private JTable table;
 	private JTextField txtRendimento;
 	private JTextField txtValor;
-	private JScrollPane scrollPane;
 	private JButton btnExcluirRendimento;
 	private JButton btnEditarRendimento;
-	private JPanel panelRendimento;
-	private JPanel panelCadastro;
-	private JLabel lblRendimento;
 	private JButton btnCadastrarRendimento;
 	private JButton btnLimparCampos;
-	private JLabel lblCategoria;
-	private JComboBox<Categoria> cbCategoria;
 	private JButton btnAddCategoria;
-	private JLabel lblValor;
-	private JPanel panelTipoRendimento;
 	private JRadioButton rdbtnOcasional;
 	private JRadioButton rdbtnMensal;
+	private JComboBox<Categoria> cbCategoria;
+	
 	private JFormattedTextField txtData;
+	private MaskFormatter mascaraData;
+	
 	private List<Categoria> categorias;
 	private List<Rendimento> rendimentos;
-	private MaskFormatter mascaraData;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -74,11 +71,6 @@ public class RendimentoWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
 	public RendimentoWindow() {
 		this.criarMascaraData();
 		this.initComponents();
@@ -92,14 +84,14 @@ public class RendimentoWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		panelCadastro = new JPanel();
+		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(
 				new TitledBorder(null, "Cadastrar Rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCadastro.setLayout(null);
 		panelCadastro.setBounds(10, 12, 548, 170);
 		getContentPane().add(panelCadastro);
 
-		lblRendimento = new JLabel("Rendimento:");
+		JLabel lblRendimento = new JLabel("Rendimento:");
 		lblRendimento.setBounds(12, 53, 99, 14);
 		panelCadastro.add(lblRendimento);
 
@@ -126,7 +118,7 @@ public class RendimentoWindow extends JFrame {
 		btnLimparCampos.setBounds(386, 135, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		lblCategoria = new JLabel("Categoria");
+		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setBounds(12, 26, 87, 15);
 		panelCadastro.add(lblCategoria);
 
@@ -144,7 +136,7 @@ public class RendimentoWindow extends JFrame {
 		btnAddCategoria.setBounds(269, 21, 44, 20);
 		panelCadastro.add(btnAddCategoria);
 
-		lblValor = new JLabel("Valor:");
+		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 79, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -153,7 +145,7 @@ public class RendimentoWindow extends JFrame {
 		txtValor.setBounds(109, 77, 150, 20);
 		panelCadastro.add(txtValor);
 
-		panelTipoRendimento = new JPanel();
+		JPanel panelTipoRendimento = new JPanel();
 
 		panelTipoRendimento.setBorder(
 				new TitledBorder(null, "Tipo de rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -198,7 +190,7 @@ public class RendimentoWindow extends JFrame {
 			}
 		});
 
-		panelRendimento = new JPanel();
+		JPanel panelRendimento = new JPanel();
 		panelRendimento.setBorder(
 				new TitledBorder(null, "Rendimentos cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelRendimento.setBounds(10, 188, 548, 197);
@@ -223,7 +215,7 @@ public class RendimentoWindow extends JFrame {
 		btnExcluirRendimento.setBounds(438, 162, 100, 23);
 		panelRendimento.add(btnExcluirRendimento);
 
-		scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelRendimento.add(scrollPane);
 

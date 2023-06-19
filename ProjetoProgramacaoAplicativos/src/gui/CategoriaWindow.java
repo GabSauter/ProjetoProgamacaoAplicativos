@@ -22,15 +22,13 @@ import java.awt.event.ActionEvent;
 
 public class CategoriaWindow extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField textField;
+	private static final long serialVersionUID = 1L;
+
+	private JTextField txtFieldNome;
 	private JButton btnExcluir;
 	private JButton btnEditar;
 	private JButton btnCadastrar;
-	private JLabel lblNome;
-	private JLabel lblCategoriasCadastradas;
-	private JComboBox<Categoria> comboBox;
-	private JLabel lblCadastrarOuEditar;
+	private JComboBox<Categoria> cbCategoria;
 
 	private List<Categoria> categorias;
 
@@ -55,30 +53,30 @@ public class CategoriaWindow extends JFrame {
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 428, 217);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
+		JLabel lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
 		lblCadastrarOuEditar.setBounds(12, 20, 255, 15);
 		contentPane.add(lblCadastrarOuEditar);
 
-		comboBox = new JComboBox<Categoria>();
-		comboBox.setBounds(195, 47, 209, 19);
-		contentPane.add(comboBox);
+		cbCategoria = new JComboBox<Categoria>();
+		cbCategoria.setBounds(195, 47, 209, 19);
+		contentPane.add(cbCategoria);
 
-		lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
+		JLabel lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
 		lblCategoriasCadastradas.setBounds(12, 47, 177, 15);
 		contentPane.add(lblCategoriasCadastradas);
 
-		textField = new JTextField();
-		textField.setBounds(195, 78, 209, 19);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtFieldNome = new JTextField();
+		txtFieldNome.setBounds(195, 78, 209, 19);
+		contentPane.add(txtFieldNome);
+		txtFieldNome.setColumns(10);
 
-		lblNome = new JLabel("Nome:");
+		JLabel lblNome = new JLabel("Nome:");
 		lblNome.setBounds(137, 80, 52, 15);
 		contentPane.add(lblNome);
 
@@ -112,46 +110,40 @@ public class CategoriaWindow extends JFrame {
 
 	private void btnExcluirAction() {
 		Categoria categoria = new Categoria();
-		categoria = (Categoria) comboBox.getSelectedItem();
+		categoria = (Categoria) cbCategoria.getSelectedItem();
 
 		if (categoria instanceof Categoria) {
 			int resposta = JOptionPane.showConfirmDialog(this,
-					"Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação",
-					JOptionPane.YES_NO_OPTION);
+					"Deseja realmente excluir a categoria: " + categoria.getNome() + "?", "Confirmação",JOptionPane.YES_NO_OPTION);
 
 			if (resposta == JOptionPane.YES_OPTION) {
 				try {
 					new CategoriaService().excluir(categoria);
-					JOptionPane.showMessageDialog(this, "Categoria excluida", "Sucesso",
-							JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Categoria excluida", "Sucesso",JOptionPane.INFORMATION_MESSAGE);
 					carregarComboBox();
 				} catch (SQLException | IOException e) {
 					e.printStackTrace();
-					JOptionPane.showMessageDialog(this, "Erro ao excluir categoria.", "Erro",
-							JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Erro ao excluir categoria.", "Erro",JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para excluir.", "Aviso",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para excluir.", "Aviso",JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
 	private void btnEditarAction() {
 		Categoria categoria = new Categoria();
-		categoria = (Categoria) comboBox.getSelectedItem();
-		String novoNomeCategoria = textField.getText();
+		categoria = (Categoria) cbCategoria.getSelectedItem();
+		String novoNomeCategoria = txtFieldNome.getText();
 
 		if (categoria instanceof Categoria) {
 			int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente editar o nome da categoria: "
-					+ categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação",
-					JOptionPane.YES_NO_OPTION);
+					+ categoria.getNome() + " para " + novoNomeCategoria + "?", "Confirmação",JOptionPane.YES_NO_OPTION);
 
 			if (resposta == JOptionPane.YES_OPTION) {
 				try {
 					new CategoriaService().atualizar(novoNomeCategoria, categoria);
-					JOptionPane.showMessageDialog(this, "Categoria editada com sucesso!", "Sucesso",
-							JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Categoria editada com sucesso!", "Sucesso",JOptionPane.INFORMATION_MESSAGE);
 					carregarComboBox();
 				} catch (SQLException | IOException e) {
 					e.printStackTrace();
@@ -159,25 +151,22 @@ public class CategoriaWindow extends JFrame {
 				}
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para editar.", "Aviso",
-					JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada para editar.", "Aviso",JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
 	private void btnCadastrarAction() {
 		Categoria categoria = new Categoria();
 
-		if (textField.getText().equals("")) {
-			JOptionPane.showMessageDialog(this, "Por favor digite o nome da categoria.", "Aviso",
-					JOptionPane.WARNING_MESSAGE);
+		if (txtFieldNome.getText().equals("")) {
+			JOptionPane.showMessageDialog(this, "Por favor digite o nome da categoria.", "Aviso",JOptionPane.WARNING_MESSAGE);
 		} else {
-			categoria.setNome(textField.getText());
+			categoria.setNome(txtFieldNome.getText());
 
 			try {
 				new CategoriaService().cadastrar(categoria);
-				JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso",
-						JOptionPane.INFORMATION_MESSAGE);
-				textField.setText("");
+				JOptionPane.showMessageDialog(this, "Categoria cadastrada com sucesso!", "Sucesso",JOptionPane.INFORMATION_MESSAGE);
+				txtFieldNome.setText("");
 				carregarComboBox();
 			} catch (SQLException | IOException e) {
 				e.printStackTrace();
@@ -189,12 +178,11 @@ public class CategoriaWindow extends JFrame {
 	private void carregarComboBox() {
 
 		try {
-
 			this.categorias = new CategoriaService().buscarTodos();
 
-			this.comboBox.removeAllItems();
+			this.cbCategoria.removeAllItems();
 			for (Categoria categoria : categorias) {
-				this.comboBox.addItem(categoria);
+				this.cbCategoria.addItem(categoria);
 			}
 
 		} catch (SQLException | IOException e) {

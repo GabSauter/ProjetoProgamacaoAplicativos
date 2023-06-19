@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 
 public class HomePageWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 
 	public static void main(String[] args) {
@@ -29,10 +30,10 @@ public class HomePageWindow extends JFrame {
 	}
 
 	public HomePageWindow() {
-		initialize();
+		initComponents();
 	}
 
-	private void initialize() {
+	private void initComponents() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 420, 470);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -126,13 +127,11 @@ public class HomePageWindow extends JFrame {
 		RelatorioWindow relatorioWindow = new RelatorioWindow();
 		relatorioWindow.setLocationRelativeTo(null);
 		relatorioWindow.setVisible(true);
-
 	}
 
 	private void btnResumoAction() {
 		ResumoWindow resumoWindow = new ResumoWindow();
 		resumoWindow.setLocationRelativeTo(null);
 		resumoWindow.setVisible(true);
-
 	}
 }

@@ -39,29 +39,24 @@ import java.awt.Color;
 
 public class DespesasWindow extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+
 	private JTable table;
 	private JTextField txtDespesa;
 	private JTextField txtValor;
-	private JPanel panelCadastro;
-	private JLabel lblDespesa;
 	private JButton btnCadastrarDespesa;
 	private JButton btnLimparCampos;
-	private JLabel lblCategoria;
-	private JComboBox<Categoria> cbCategoria;
-	private JButton btnAddCategoria;
-	private JLabel lblValor;
-	private JPanel panelTipoDespesa;
-	private JRadioButton rdbtnOcasional;
-	private JRadioButton rdbtnMensal;
-	private JPanel panelDespesas;
 	private JButton btnEditarDespesa;
 	private JButton btnExcluirDespesa;
-	private JScrollPane scrollPane;
-	private JLabel lblDatammaaaa;
+	private JButton btnAddCategoria;
+	private JRadioButton rdbtnOcasional;
+	private JRadioButton rdbtnMensal;
+	private JComboBox<Categoria> cbCategoria;
 	private JFormattedTextField txtData;
+	private MaskFormatter mascaraData;
+
 	private List<Despesa> despesas;
 	private List<Categoria> categorias;
-	private MaskFormatter mascaraData;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -74,40 +69,27 @@ public class DespesasWindow extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 * 
-	 * @wbp.parser.entryPoint
-	 */
 	public DespesasWindow() {
 		this.criarMascaraData();
 		this.initComponents();
 		this.carregarComboBox();
 		this.carregaTabelaDespesa();
 	}
-
-	private void criarMascaraData() {
-		try {
-			this.mascaraData = new MaskFormatter("##/####");
-		} catch (ParseException e) {
-			System.out.println("ERRO: " + e.getMessage());
-		}
-	}
-
+	
 	private void initComponents() {
 
 		setBounds(100, 100, 570, 433);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		panelCadastro = new JPanel();
+		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelCadastro.setLayout(null);
-		panelCadastro.setBounds(10, 12, 548, 170);
+		panelCadastro.setBounds(10, 12, 548, 171);
 		getContentPane().add(panelCadastro);
 
-		lblDespesa = new JLabel("Despesa:");
+		JLabel lblDespesa = new JLabel("Despesa:");
 		lblDespesa.setBounds(12, 53, 99, 14);
 		panelCadastro.add(lblDespesa);
 
@@ -119,7 +101,7 @@ public class DespesasWindow extends JFrame {
 		btnCadastrarDespesa = new JButton("Cadastrar");
 		btnCadastrarDespesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnCadastrarDespesaActionPerformed();
+				btnCadastrarDespesaAction();
 			}
 		});
 		btnCadastrarDespesa.setBounds(269, 135, 105, 23);
@@ -128,13 +110,13 @@ public class DespesasWindow extends JFrame {
 		btnLimparCampos = new JButton("Limpar campos");
 		btnLimparCampos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnLimparCamposActionPerformed();
+				btnLimparCamposAction();
 			}
 		});
 		btnLimparCampos.setBounds(386, 135, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		lblCategoria = new JLabel("Categoria");
+		JLabel lblCategoria = new JLabel("Categoria");
 		lblCategoria.setBounds(12, 26, 87, 15);
 		panelCadastro.add(lblCategoria);
 
@@ -152,7 +134,7 @@ public class DespesasWindow extends JFrame {
 		btnAddCategoria.setBounds(269, 21, 44, 20);
 		panelCadastro.add(btnAddCategoria);
 
-		lblValor = new JLabel("Valor:");
+		JLabel lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 79, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -161,7 +143,7 @@ public class DespesasWindow extends JFrame {
 		txtValor.setBounds(109, 77, 150, 20);
 		panelCadastro.add(txtValor);
 
-		panelTipoDespesa = new JPanel();
+		JPanel panelTipoDespesa = new JPanel();
 
 		panelTipoDespesa.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -177,7 +159,7 @@ public class DespesasWindow extends JFrame {
 		rdbtnMensal.setBounds(136, 19, 89, 23);
 		panelTipoDespesa.add(rdbtnMensal);
 
-		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(277, 79, 117, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -186,7 +168,7 @@ public class DespesasWindow extends JFrame {
 		panelCadastro.add(txtData);
 		txtData.setColumns(10);
 
-		panelDespesas = new JPanel();
+		JPanel panelDespesas = new JPanel();
 		panelDespesas.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelDespesas.setBounds(10, 188, 548, 197);
@@ -196,7 +178,7 @@ public class DespesasWindow extends JFrame {
 		btnEditarDespesa = new JButton("Editar");
 		btnEditarDespesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnEditarDespesaActionPerformed();
+				btnEditarDespesaAction();
 			}
 		});
 		btnEditarDespesa.setBounds(333, 162, 100, 23);
@@ -205,13 +187,13 @@ public class DespesasWindow extends JFrame {
 		btnExcluirDespesa = new JButton("Excluir");
 		btnExcluirDespesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnExcluirActionPerformed();
+				btnExcluirAction();
 			}
 		});
 		btnExcluirDespesa.setBounds(438, 162, 100, 23);
 		panelDespesas.add(btnExcluirDespesa);
 
-		scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelDespesas.add(scrollPane);
 
@@ -227,11 +209,12 @@ public class DespesasWindow extends JFrame {
 		scrollPane.setViewportView(table);
 	}
 
-	protected void btnExcluirActionPerformed() {
+	protected void btnExcluirAction() {
+		
 		int coluna = table.getSelectedRow();
 
 		if (coluna == -1) {
-			JOptionPane.showMessageDialog(this, "Selecione um fundo para excluir.", "Aviso",
+			JOptionPane.showMessageDialog(this, "Selecione uma despesa para excluir.", "Aviso",
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
@@ -239,24 +222,24 @@ public class DespesasWindow extends JFrame {
 		Despesa despesa = despesas.get(coluna);
 
 		int resposta = JOptionPane.showConfirmDialog(this,
-				"Deseja realmente excluir o fundo: " + despesa.getDespesa() + "?", "Confirmação",
+				"Deseja realmente excluir a despesa: " + despesa.getDespesa() + "?", "Confirmação",
 				JOptionPane.YES_NO_OPTION);
 		if (resposta == JOptionPane.YES_OPTION) {
 			try {
 				new DespesaService().excluir(despesa);
-				JOptionPane.showMessageDialog(this, "Fundo Ocasional excluido.", "Sucesso",
+				JOptionPane.showMessageDialog(this, "Despesa excluida.", "Sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
 				carregaTabelaDespesa();
 			} catch (SQLException | IOException e) {
 				e.printStackTrace();
-				JOptionPane.showMessageDialog(this, "Erro ao excluir Fundo Ocasional.", "Erro",
+				JOptionPane.showMessageDialog(this, "Erro ao excluir despesa.", "Erro",
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 
 	}
 
-	protected void btnEditarDespesaActionPerformed() {
+	protected void btnEditarDespesaAction() {
 		int coluna = table.getSelectedRow();
 
 		if (coluna == -1) {
@@ -296,7 +279,7 @@ public class DespesasWindow extends JFrame {
 							}
 
 							new DespesaService().atualizar(despesaEditada);
-							JOptionPane.showMessageDialog(this, "Rendimento editado.", "Sucesso",
+							JOptionPane.showMessageDialog(this, "Despesa editada.", "Sucesso",
 									JOptionPane.INFORMATION_MESSAGE);
 							carregaTabelaDespesa();
 						} catch (NumberFormatException e) {
@@ -304,7 +287,7 @@ public class DespesasWindow extends JFrame {
 									JOptionPane.ERROR_MESSAGE);
 						} catch (SQLException | IOException e) {
 							e.printStackTrace();
-							JOptionPane.showMessageDialog(this, "Erro ao editar Rendimento.", "Erro",
+							JOptionPane.showMessageDialog(this, "Erro ao editar despesa.", "Erro",
 									JOptionPane.ERROR_MESSAGE);
 						}
 					} else
@@ -312,11 +295,11 @@ public class DespesasWindow extends JFrame {
 								JOptionPane.WARNING_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(this,
-							"Por favor insira valores em todos os campos para editar uma categoria.", "Aviso",
+							"Por favor insira valores em todos os campos para editar uma despesa.", "Aviso",
 							JOptionPane.WARNING_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada, por favor cadastre uma categoria.",
+				JOptionPane.showMessageDialog(this, "Nenhuma despesa encontrada, por favor cadastre uma categoria.",
 						"Aviso", JOptionPane.WARNING_MESSAGE);
 			}
 
@@ -324,11 +307,10 @@ public class DespesasWindow extends JFrame {
 
 	}
 
-	protected void btnLimparCamposActionPerformed() {
+	protected void btnLimparCamposAction() {
 		txtDespesa.setText("");
 		txtValor.setText("");
 		txtData.setText("");
-
 	}
 
 	public static boolean isDateValid(String dataString) {
@@ -352,24 +334,8 @@ public class DespesasWindow extends JFrame {
 			return false;
 		}
 	}
-
-	private void carregarComboBox() {
-		try {
-
-			this.categorias = new CategoriaService().buscarTodos();
-
-			this.cbCategoria.removeAllItems();
-			for (Categoria categoria : categorias) {
-				this.cbCategoria.addItem(categoria);
-			}
-
-		} catch (SQLException | IOException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao carregar categorias.", "Erro", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();
-		}
-	}
-
-	private void btnCadastrarDespesaActionPerformed() {
+	
+	private void btnCadastrarDespesaAction() {
 		Categoria categoria = new Categoria();
 		categoria = (Categoria) cbCategoria.getSelectedItem();
 
@@ -394,7 +360,7 @@ public class DespesasWindow extends JFrame {
 
 						new DespesaService().cadastrar(despesa);
 
-						// JOptionPane.showMessageDialog(this, "Rendimento cadastrado com sucesso.",
+						// JOptionPane.showMessageDialog(this, "Despesa cadastrada com sucesso.",
 						// "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 						carregaTabelaDespesa();
 					} catch (NumberFormatException e) {
@@ -402,7 +368,7 @@ public class DespesasWindow extends JFrame {
 								JOptionPane.ERROR_MESSAGE);
 					} catch (SQLException | IOException e) {
 						e.printStackTrace();
-						JOptionPane.showMessageDialog(this, "Erro ao cadastrar Rendimento.", "Erro",
+						JOptionPane.showMessageDialog(this, "Erro ao cadastrar Despesa.", "Erro",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				} else
@@ -410,11 +376,27 @@ public class DespesasWindow extends JFrame {
 							JOptionPane.WARNING_MESSAGE);
 			} else
 				JOptionPane.showMessageDialog(this,
-						"Por favor insira valores em todos os campos para cadastrar uma categoria.", "Aviso",
+						"Por favor insira valores em todos os campos para cadastrar uma despesa.", "Aviso",
 						JOptionPane.WARNING_MESSAGE);
 		} else
 			JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada, por favor cadastre uma categoria.",
 					"Aviso", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	private void carregarComboBox() {
+		try {
+
+			this.categorias = new CategoriaService().buscarTodos();
+
+			this.cbCategoria.removeAllItems();
+			for (Categoria categoria : categorias) {
+				this.cbCategoria.addItem(categoria);
+			}
+
+		} catch (SQLException | IOException e) {
+			JOptionPane.showMessageDialog(this, "Erro ao carregar categorias.", "Erro", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 	}
 
 	private void carregaTabelaDespesa() {
@@ -430,7 +412,7 @@ public class DespesasWindow extends JFrame {
 						despesa.getMensal(), despesa.getOcasional(), despesa.getTotalAno() });
 			}
 		} catch (SQLException | IOException e) {
-			JOptionPane.showMessageDialog(this, "Erro ao carregar rendimentos.", "Erro", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Erro ao carregar despesa.", "Erro", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
 
@@ -465,6 +447,14 @@ public class DespesasWindow extends JFrame {
 		}
 	}
 
+	private void criarMascaraData() {
+		try {
+			this.mascaraData = new MaskFormatter("##/####");
+		} catch (ParseException e) {
+			System.out.println("ERRO: " + e.getMessage());
+		}
+	}
+	
 	private void btnAddCategoriaAction() {
 		new CategoriaWindow().setVisible(true);
 	}
