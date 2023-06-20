@@ -117,6 +117,7 @@ public class FundoOcasionalWindow extends JFrame {
 		panelTipoFundo.setLayout(null);
 
 		rdbtnOcasional = new JRadioButton("Ocasional");
+		rdbtnOcasional.setSelected(true);
 		rdbtnOcasional.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnMensal.setSelected(false);

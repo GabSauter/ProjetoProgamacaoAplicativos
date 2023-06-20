@@ -128,6 +128,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		panelTipoInvestimento.setLayout(null);
 
 		rdbtnOcasional = new JRadioButton("Ocasional");
+		rdbtnOcasional.setSelected(true);
 		rdbtnOcasional.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rdbtnMensal.setSelected(false);

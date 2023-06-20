@@ -152,6 +152,7 @@ public class DespesasWindow extends JFrame {
 		panelCadastro.add(panelTipoDespesa);
 		panelTipoDespesa.setLayout(null);
 
+		
 		rdbtnOcasional = new JRadioButton("Ocasional");
 		rdbtnOcasional.setBounds(8, 19, 95, 23);
 		panelTipoDespesa.add(rdbtnOcasional);
@@ -168,6 +169,21 @@ public class DespesasWindow extends JFrame {
 		txtData.setBounds(402, 77, 134, 19);
 		panelCadastro.add(txtData);
 		txtData.setColumns(10);
+		
+		rdbtnOcasional.setSelected(true);
+		rdbtnMensal.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rdbtnOcasional.setSelected(false);
+			}
+		});
+
+		rdbtnOcasional.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				rdbtnMensal.setSelected(false);
+			}
+		});
 
 		JPanel panelDespesas = new JPanel();
 		panelDespesas.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas",

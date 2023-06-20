@@ -12,7 +12,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/gabriel/Documents/Dev/Java/Projeto/ProjetoProgramacaoAplicativos/java-libs/POI/poi-3.17.jar">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ApachePOI">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
