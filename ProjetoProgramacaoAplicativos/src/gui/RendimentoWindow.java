@@ -83,6 +83,7 @@ public class RendimentoWindow extends JFrame {
 		setBounds(100, 100, 570, 433);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
+		setResizable(false);
 
 		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(

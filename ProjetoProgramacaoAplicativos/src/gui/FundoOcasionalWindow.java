@@ -62,6 +62,7 @@ public class FundoOcasionalWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 570, 390);
 		getContentPane().setLayout(null);
+		setResizable(false);
 
 		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(

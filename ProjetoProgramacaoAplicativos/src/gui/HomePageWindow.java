@@ -38,6 +38,7 @@ public class HomePageWindow extends JFrame {
 		frame.setBounds(100, 100, 420, 470);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 
 		JLabel lblTitle = new JLabel("GGE Finances");
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 16));

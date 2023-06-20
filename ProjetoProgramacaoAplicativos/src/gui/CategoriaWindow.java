@@ -53,6 +53,8 @@ public class CategoriaWindow extends JFrame {
 	public void initComponents() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 428, 217);
+		setResizable(false);
+
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 

@@ -76,6 +76,7 @@ public class RelatorioWindow extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		setResizable(false);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 434, 261);
