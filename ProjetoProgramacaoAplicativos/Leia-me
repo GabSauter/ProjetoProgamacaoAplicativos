@@ -1,0 +1,19 @@
+Para preparar a máquina para a execução do programa, primeiro é necessário:
+
+criar um database utilizando o arquivo .sql contido na pasta "database", respeitando o nome financedb (que está configurado no arquivo database.properties);
+
+adicionar as libs JDBC-Connector e POI, que estão disponíveis na pasta "java-libs";
+
+Executar o Xampp e conferir se a conexão foi bem-sucedida utilizando o arquivo DatabaseTest.java contido em /src/test/dao;
+
+Após isso, é possível executar o programa inicializando o arquivo HomePageWindow.java contido em /src/gui/
+
+=================================================================================================================================================================
+INTEGRANTES:
+
+Gabriel Alessi Posonski
+
+Gabriel de Andrade Sauter
+
+Eduardo de Almeida Bento Dias
+
