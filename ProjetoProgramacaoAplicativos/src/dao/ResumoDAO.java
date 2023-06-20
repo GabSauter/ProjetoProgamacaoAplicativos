@@ -16,7 +16,6 @@ public class ResumoDAO {
 
 	}
 
-
 	// O processo de coleta no DB requer muitas verificações, porém tentei enviar
 	// apenas o necessário para a service, que será a responsável
 	// pelos demais cálculos
@@ -159,116 +158,89 @@ public class ResumoDAO {
 
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		
-		double rendimento;
-		double investimentos;
-		double ocasional;
-		double totalDispDespesas;
-		double despesas;
-		double valorTotal;
-		double total = 0;
-		
-		List<Double> listaResumo = new ArrayList<Double>();
-		
-		try {
 
+		double rendimento = 0;
+		double investimentos = 0;
+		double fundoOcasional = 0;
+		double despesas = 0;
+
+		List<Double> listaResumo = new ArrayList<Double>();
+
+		try {
 
 			st = conn.prepareStatement("SELECT * FROM rendimento "
 					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) < ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) >= ? AND mensal > 0) "
-					+ "OR STR_TO_DATE(data, '%m/%Y') = STR_TO_DATE(?, '%m/%Y')");
+					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
 			st.setInt(1, Integer.parseInt(dataDiv[1]));
 			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, Integer.parseInt(dataDiv[1]));
+			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
 			st.setInt(4, Integer.parseInt(dataDiv[0]));
-
-			st.setString(5, data);
 
 			rs = st.executeQuery();
 
 			while (rs.next()) {
-				total += rs.getDouble("mensal");
+				rendimento += rs.getDouble("mensal");
 			}
-			
-			rendimento = total;
-			listaResumo.add(total);
-			total = 0;
+
+			listaResumo.add(rendimento);
 
 			Database.finalizarStatement(st);
 			Database.finalizarResultSet(rs);
 
 			st = conn.prepareStatement("SELECT * FROM investimentos "
 					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) < ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) >= ? AND mensal > 0) "
-					+ "OR (STR_TO_DATE(data, '%m/%Y') = STR_TO_DATE(?, '%m/%Y') AND mensal > 0)");
+					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
 			st.setInt(1, Integer.parseInt(dataDiv[1]));
 			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, Integer.parseInt(dataDiv[1]));
+			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
 			st.setInt(4, Integer.parseInt(dataDiv[0]));
-
-			st.setString(5, data);
 
 			rs = st.executeQuery();
 
 			while (rs.next()) {
-				total += rs.getDouble("mensal");
+				investimentos += rs.getDouble("mensal");
 			}
-			investimentos = total;
-			listaResumo.add(total);
-			total = 0;
+
+			listaResumo.add(investimentos);
 
 			Database.finalizarStatement(st);
 			Database.finalizarResultSet(rs);
 
 			st = conn.prepareStatement("SELECT * FROM fundo "
 					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) < ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) >= ? AND mensal > 0) "
-					+ "OR (STR_TO_DATE(data, '%m/%Y') = STR_TO_DATE(?, '%m/%Y') AND mensal > 0)");
+					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
 			st.setInt(1, Integer.parseInt(dataDiv[1]));
 			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, Integer.parseInt(dataDiv[1]));
+			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
 			st.setInt(4, Integer.parseInt(dataDiv[0]));
-
-			st.setString(5, data);
 
 			rs = st.executeQuery();
 
 			while (rs.next()) {
-				total += rs.getDouble("mensal") + rs.getDouble("ocasional");
+				fundoOcasional += rs.getDouble("mensal");
 			}
-			ocasional = total;
-			listaResumo.add(total);
 
-			totalDispDespesas = rendimento - investimentos - ocasional;
-			listaResumo.add(totalDispDespesas);
-			total = 0;
+			listaResumo.add(fundoOcasional);
 
 			Database.finalizarStatement(st);
 			Database.finalizarResultSet(rs);
 
 			st = conn.prepareStatement("SELECT * FROM despesas "
 					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) < ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) >= ? AND mensal > 0) "
-					+ "OR (STR_TO_DATE(data, '%m/%Y') = STR_TO_DATE(?, '%m/%Y') AND mensal > 0)");
+					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
 			st.setInt(1, Integer.parseInt(dataDiv[1]));
 			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, Integer.parseInt(dataDiv[1]));
+			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
 			st.setInt(4, Integer.parseInt(dataDiv[0]));
-
-			st.setString(5, data);
 
 			rs = st.executeQuery();
 
 			while (rs.next()) {
-				total += rs.getDouble("mensal");
+				despesas += rs.getDouble("mensal");
 
 			}
 
-			despesas = total;
-			listaResumo.add(total);
-
-			valorTotal = totalDispDespesas - despesas;
-			listaResumo.add(valorTotal);
+			listaResumo.add(despesas);
 
 			return listaResumo;
 
