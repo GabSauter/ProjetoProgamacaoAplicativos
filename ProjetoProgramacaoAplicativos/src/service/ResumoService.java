@@ -13,19 +13,31 @@ public class ResumoService {
 	Connection conn = null;
 
 	public List<Double> atualizarMes(String data) throws SQLException, IOException {
-		conn = Database.conectar();
-		return new ResumoDAO(conn).atualizarMes(data);
+		Double despesas;
 
+		conn = Database.conectar();
+
+		List<Double> result = new ResumoDAO(conn).atualizarMes(data);
+		despesas = result.get(3);
+		result.set(3, result.get(0) - result.get(1) - result.get(2));
+		result.add(despesas);
+		result.add(result.get(3) - despesas);
+
+		return result;
 	}
 
 	public List<String> atualizarAno(String data) throws SQLException, IOException {
 
+		//retorna um List tipo String apenas para fins estéticos na exibição da tabela
+		
 		List<String> novo;
 		double excedente = 0;
 		double despesasMensais;
 		double despesasOcasionais;
 		double totalDispDespesas;
+
 		conn = Database.conectar();
+
 		List<Double> result = new ResumoDAO(conn).atualizarAno(data);
 
 		for (int i = 0; i < 12; i++) {
