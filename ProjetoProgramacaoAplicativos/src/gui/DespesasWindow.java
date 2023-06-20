@@ -73,7 +73,7 @@ public class DespesasWindow extends JFrame {
 		this.criarMascaraData();
 		this.initComponents();
 		this.carregarComboBox();
-		this.carregaTabelaDespesa();
+		this.carregarTabelaDespesa();
 	}
 	
 	private void initComponents() {
@@ -230,7 +230,7 @@ public class DespesasWindow extends JFrame {
 				new DespesaService().excluir(despesa);
 				JOptionPane.showMessageDialog(this, "Despesa excluida.", "Sucesso",
 						JOptionPane.INFORMATION_MESSAGE);
-				carregaTabelaDespesa();
+				carregarTabelaDespesa();
 			} catch (SQLException | IOException e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this, "Erro ao excluir despesa.", "Erro",
@@ -282,7 +282,7 @@ public class DespesasWindow extends JFrame {
 							new DespesaService().atualizar(despesaEditada);
 							JOptionPane.showMessageDialog(this, "Despesa editada.", "Sucesso",
 									JOptionPane.INFORMATION_MESSAGE);
-							carregaTabelaDespesa();
+							carregarTabelaDespesa();
 						} catch (NumberFormatException e) {
 							JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro",
 									JOptionPane.ERROR_MESSAGE);
@@ -300,7 +300,7 @@ public class DespesasWindow extends JFrame {
 							JOptionPane.WARNING_MESSAGE);
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Nenhuma despesa encontrada, por favor cadastre uma categoria.",
+				JOptionPane.showMessageDialog(this, "Nenhuma categoria encontrada, por favor cadastre uma categoria.",
 						"Aviso", JOptionPane.WARNING_MESSAGE);
 			}
 
@@ -363,7 +363,7 @@ public class DespesasWindow extends JFrame {
 
 						// JOptionPane.showMessageDialog(this, "Despesa cadastrada com sucesso.",
 						// "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-						carregaTabelaDespesa();
+						carregarTabelaDespesa();
 					} catch (NumberFormatException e) {
 						JOptionPane.showMessageDialog(this, "Valor inválido. Insira um valor numérico.", "Erro",
 								JOptionPane.ERROR_MESSAGE);
@@ -400,7 +400,7 @@ public class DespesasWindow extends JFrame {
 		}
 	}
 
-	private void carregaTabelaDespesa() {
+	private void carregarTabelaDespesa() {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		model.fireTableDataChanged();
 		model.setRowCount(0);
