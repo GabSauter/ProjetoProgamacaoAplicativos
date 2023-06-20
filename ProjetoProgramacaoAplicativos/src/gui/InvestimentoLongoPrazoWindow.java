@@ -73,6 +73,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		setBounds(100, 100, 570, 390);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
+		setResizable(false);
 
 		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(

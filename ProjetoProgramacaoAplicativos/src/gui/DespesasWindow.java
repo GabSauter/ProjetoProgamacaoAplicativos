@@ -81,6 +81,7 @@ public class DespesasWindow extends JFrame {
 		setBounds(100, 100, 570, 433);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
+		setResizable(false);
 
 		JPanel panelCadastro = new JPanel();
 		panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas",
