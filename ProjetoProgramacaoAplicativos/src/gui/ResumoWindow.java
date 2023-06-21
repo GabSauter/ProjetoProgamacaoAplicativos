@@ -48,6 +48,9 @@ public class ResumoWindow extends JFrame {
 	private List<String> resultAno;
 	private List<String> descricaoMes;
 	private List<String> descricaoAno;
+	private JButton btnAtualizarMes;
+	private JLabel lblAno;
+	private JLabel lblDataReferentemmaaaa;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -141,7 +144,7 @@ public class ResumoWindow extends JFrame {
 		column.setPreferredWidth(preferredWidth);
 		scrollPaneAnual.setViewportView(tableAnual);
 
-		JLabel lblDataReferentemmaaaa = new JLabel("Data referente (MM/AAAA):");
+		lblDataReferentemmaaaa = new JLabel("Data referente (MM/AAAA):");
 		lblDataReferentemmaaaa.setBounds(376, 12, 201, 15);
 		contentPane.add(lblDataReferentemmaaaa);
 
@@ -150,7 +153,7 @@ public class ResumoWindow extends JFrame {
 		contentPane.add(txtDataMes);
 		txtDataMes.setColumns(10);
 
-		JLabel lblAno = new JLabel("Ano:");
+		lblAno = new JLabel("Ano:");
 		lblAno.setBounds(532, 172, 38, 15);
 		contentPane.add(lblAno);
 
@@ -160,7 +163,7 @@ public class ResumoWindow extends JFrame {
 		contentPane.add(txtDataAno);
 		txtDataAno.setColumns(10);
 
-		JButton btnAtualizarMes = new JButton("Atualizar");
+		btnAtualizarMes = new JButton("Atualizar");
 		btnAtualizarMes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAtualizarMesAction();

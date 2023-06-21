@@ -59,6 +59,15 @@ public class RendimentoWindow extends JFrame {
 	
 	private List<Categoria> categorias;
 	private List<Rendimento> rendimentos;
+	private ButtonGroup buttonGroup;
+	private JScrollPane scrollPane;
+	private JPanel panelRendimento;
+	private JLabel lblDatammaaaa;
+	private JPanel panelTipoRendimento;
+	private JLabel lblValor;
+	private JLabel lblCategoria;
+	private JLabel lblRendimento;
+	private JPanel panelCadastro;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -85,14 +94,14 @@ public class RendimentoWindow extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 
-		JPanel panelCadastro = new JPanel();
+		panelCadastro = new JPanel();
 		panelCadastro.setBorder(
 				new TitledBorder(null, "Cadastrar Rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelCadastro.setLayout(null);
 		panelCadastro.setBounds(10, 12, 548, 170);
 		getContentPane().add(panelCadastro);
 
-		JLabel lblRendimento = new JLabel("Rendimento:");
+		lblRendimento = new JLabel("Rendimento:");
 		lblRendimento.setBounds(12, 53, 99, 14);
 		panelCadastro.add(lblRendimento);
 
@@ -119,7 +128,7 @@ public class RendimentoWindow extends JFrame {
 		btnLimparCampos.setBounds(386, 135, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		JLabel lblCategoria = new JLabel("Categoria");
+		lblCategoria = new JLabel("Categoria");
 		lblCategoria.setBounds(12, 26, 87, 15);
 		panelCadastro.add(lblCategoria);
 
@@ -137,7 +146,7 @@ public class RendimentoWindow extends JFrame {
 		btnAddCategoria.setBounds(269, 21, 44, 20);
 		panelCadastro.add(btnAddCategoria);
 
-		JLabel lblValor = new JLabel("Valor:");
+		lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 79, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -146,7 +155,7 @@ public class RendimentoWindow extends JFrame {
 		txtValor.setBounds(109, 77, 150, 20);
 		panelCadastro.add(txtValor);
 
-		JPanel panelTipoRendimento = new JPanel();
+		panelTipoRendimento = new JPanel();
 
 		panelTipoRendimento.setBorder(
 				new TitledBorder(null, "Tipo de rendimento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -154,7 +163,7 @@ public class RendimentoWindow extends JFrame {
 		panelCadastro.add(panelTipoRendimento);
 		panelTipoRendimento.setLayout(null);
 
-		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdbtnOcasional);
 		buttonGroup.add(rdbtnMensal);
 
@@ -168,7 +177,7 @@ public class RendimentoWindow extends JFrame {
 
 		rdbtnOcasional.setSelected(true);
 
-		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(269, 79, 123, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -191,7 +200,7 @@ public class RendimentoWindow extends JFrame {
 			}
 		});
 
-		JPanel panelRendimento = new JPanel();
+		panelRendimento = new JPanel();
 		panelRendimento.setBorder(
 				new TitledBorder(null, "Rendimentos cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelRendimento.setBounds(10, 188, 548, 197);
@@ -216,7 +225,7 @@ public class RendimentoWindow extends JFrame {
 		btnExcluirRendimento.setBounds(438, 162, 100, 23);
 		panelRendimento.add(btnExcluirRendimento);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelRendimento.add(scrollPane);
 

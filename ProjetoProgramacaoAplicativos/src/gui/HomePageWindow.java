@@ -14,6 +14,13 @@ public class HomePageWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
+	private JButton btnRelatorio;
+	private JButton btnResumo;
+	private JButton btnFundoDespesas;
+	private JButton btnInvestimentos;
+	private JButton btnDespesas;
+	private JButton btnRendimentos;
+	private JLabel lblTitle;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -40,12 +47,12 @@ public class HomePageWindow extends JFrame {
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
-		JLabel lblTitle = new JLabel("GGE Finances");
+		lblTitle = new JLabel("GGE Finances");
 		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitle.setBounds(149, 27, 152, 20);
 		frame.getContentPane().add(lblTitle);
 
-		JButton btnRendimentos = new JButton("Rendimentos");
+		btnRendimentos = new JButton("Rendimentos");
 		btnRendimentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnRendimentoAction();
@@ -54,7 +61,7 @@ public class HomePageWindow extends JFrame {
 		btnRendimentos.setBounds(60, 207, 286, 30);
 		frame.getContentPane().add(btnRendimentos);
 
-		JButton btnDespesas = new JButton("Despesas");
+		btnDespesas = new JButton("Despesas");
 		btnDespesas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnDespesasAction();
@@ -63,7 +70,7 @@ public class HomePageWindow extends JFrame {
 		btnDespesas.setBounds(60, 261, 286, 30);
 		frame.getContentPane().add(btnDespesas);
 
-		JButton btnInvestimentos = new JButton("Investimentos a Longo Prazo");
+		btnInvestimentos = new JButton("Investimentos a Longo Prazo");
 		btnInvestimentos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnInvestimentosLongoPrazo();
@@ -72,7 +79,7 @@ public class HomePageWindow extends JFrame {
 		btnInvestimentos.setBounds(60, 314, 286, 30);
 		frame.getContentPane().add(btnInvestimentos);
 
-		JButton btnFundoDespesas = new JButton("Fundo de Despesas Ocasionais");
+		btnFundoDespesas = new JButton("Fundo de Despesas Ocasionais");
 		btnFundoDespesas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnFundoDespesas();
@@ -81,7 +88,7 @@ public class HomePageWindow extends JFrame {
 		btnFundoDespesas.setBounds(60, 365, 286, 30);
 		frame.getContentPane().add(btnFundoDespesas);
 
-		JButton btnResumo = new JButton("Resumo");
+		btnResumo = new JButton("Resumo");
 		btnResumo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnResumoAction();
@@ -90,7 +97,7 @@ public class HomePageWindow extends JFrame {
 		btnResumo.setBounds(60, 92, 286, 30);
 		frame.getContentPane().add(btnResumo);
 
-		JButton btnRelatorio = new JButton("Relatório");
+		btnRelatorio = new JButton("Relatório");
 		btnRelatorio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnRelatorioAction();

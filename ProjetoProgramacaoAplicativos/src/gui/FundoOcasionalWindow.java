@@ -51,6 +51,13 @@ public class FundoOcasionalWindow extends JFrame {
 
 	private JFormattedTextField txtData;
 	private MaskFormatter mascaraData;
+	private JScrollPane scrollPane;
+	private JPanel panelFundos;
+	private JLabel lblDatammaaaa;
+	private JPanel panelTipoFundo;
+	private JLabel lblValor;
+	private JPanel panelCadastro;
+	private JLabel lblFundo;
 
 	public FundoOcasionalWindow() {
 		this.criarMascaraData();
@@ -64,7 +71,7 @@ public class FundoOcasionalWindow extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 
-		JPanel panelCadastro = new JPanel();
+		panelCadastro = new JPanel();
 		panelCadastro.setBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  fundo de despesas ocasionais",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -72,7 +79,7 @@ public class FundoOcasionalWindow extends JFrame {
 		panelCadastro.setBounds(10, 12, 548, 145);
 		getContentPane().add(panelCadastro);
 
-		JLabel lblFundo = new JLabel("Fundo:");
+		lblFundo = new JLabel("Fundo:");
 		lblFundo.setBounds(12, 28, 99, 14);
 		panelCadastro.add(lblFundo);
 
@@ -99,7 +106,7 @@ public class FundoOcasionalWindow extends JFrame {
 		btnLimparCampos.setBounds(386, 110, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		JLabel lblValor = new JLabel("Valor:");
+		lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 54, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -108,7 +115,7 @@ public class FundoOcasionalWindow extends JFrame {
 		txtValor.setBounds(109, 52, 150, 20);
 		panelCadastro.add(txtValor);
 
-		JPanel panelTipoFundo = new JPanel();
+		panelTipoFundo = new JPanel();
 
 		panelTipoFundo.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -135,7 +142,7 @@ public class FundoOcasionalWindow extends JFrame {
 		rdbtnMensal.setBounds(136, 19, 89, 23);
 		panelTipoFundo.add(rdbtnMensal);
 
-		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(269, 54, 117, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -144,7 +151,7 @@ public class FundoOcasionalWindow extends JFrame {
 		panelCadastro.add(txtData);
 		txtData.setColumns(10);
 
-		JPanel panelFundos = new JPanel();
+		panelFundos = new JPanel();
 		panelFundos.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Fundos Cadastrados",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelFundos.setBounds(10, 169, 548, 186);
@@ -169,7 +176,7 @@ public class FundoOcasionalWindow extends JFrame {
 		btnExcluirFundo.setBounds(438, 162, 100, 23);
 		panelFundos.add(btnExcluirFundo);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelFundos.add(scrollPane);
 
