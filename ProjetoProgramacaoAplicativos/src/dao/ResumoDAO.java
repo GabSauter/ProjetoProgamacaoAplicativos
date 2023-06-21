@@ -39,11 +39,12 @@ public class ResumoDAO {
 		double despesaOcasional = 0;
 
 		try {
-			st = conn.prepareStatement(
-					"SELECT * " + "FROM rendimento " + "WHERE YEAR(STR_TO_DATE(data, '%m/%Y')) = ? OR "
-							+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) != 01);");
-			st.setInt(1, Integer.parseInt(data));
-			st.setInt(2, Integer.parseInt(data) - 1);
+			
+			st = conn.prepareStatement("SELECT * FROM rendimento "
+					+ "WHERE SUBSTRING(data, 4, 7) = ? OR (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) != 01)");
+			st.setString(1, data);
+			st.setString(2, String.valueOf(Integer.parseInt(data) - 1));
+
 			rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -67,11 +68,11 @@ public class ResumoDAO {
 			Database.finalizarStatement(st);
 			Database.finalizarResultSet(rs);
 
-			st = conn.prepareStatement(
-					"SELECT * " + "FROM investimentos " + "WHERE YEAR(STR_TO_DATE(data, '%m/%Y')) = ? OR "
-							+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) != 01);");
-			st.setInt(1, Integer.parseInt(data));
-			st.setInt(2, Integer.parseInt(data) - 1);
+			st = conn.prepareStatement("SELECT * FROM investimentos "
+					+ "WHERE SUBSTRING(data, 4, 7) = ? OR (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) != 01)");
+			st.setString(1, data);
+			st.setString(2, String.valueOf(Integer.parseInt(data) - 1));
+			
 			rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -95,10 +96,11 @@ public class ResumoDAO {
 			Database.finalizarStatement(st);
 			Database.finalizarResultSet(rs);
 
-			st = conn.prepareStatement("SELECT * " + "FROM fundo " + "WHERE YEAR(STR_TO_DATE(data, '%m/%Y')) = ? OR "
-					+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) != 01);");
-			st.setInt(1, Integer.parseInt(data));
-			st.setInt(2, Integer.parseInt(data) - 1);
+			st = conn.prepareStatement("SELECT * FROM fundo "
+					+ "WHERE SUBSTRING(data, 4, 7) = ? OR (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) != 01)");
+			st.setString(1, data);
+			st.setString(2, String.valueOf(Integer.parseInt(data) - 1));
+			
 			rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -119,10 +121,11 @@ public class ResumoDAO {
 			fundoTotal = fundoMensal + fundoOcasional;
 			listaResumo.add(fundoTotal);
 
-			st = conn.prepareStatement("SELECT * " + "FROM despesas " + "WHERE YEAR(STR_TO_DATE(data, '%m/%Y')) = ? OR "
-					+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) != 01);");
-			st.setInt(1, Integer.parseInt(data));
-			st.setInt(2, Integer.parseInt(data) - 1);
+			st = conn.prepareStatement("SELECT * FROM despesas "
+					+ "WHERE SUBSTRING(data, 4, 7) = ? OR (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) != 01)");
+			st.setString(1, data);
+			st.setString(2, String.valueOf(Integer.parseInt(data) - 1));
+			
 			rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -169,12 +172,12 @@ public class ResumoDAO {
 		try {
 
 			st = conn.prepareStatement("SELECT * FROM rendimento "
-					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
+					+ "WHERE (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) <= ? AND mensal > 0) "
 					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
-			st.setInt(1, Integer.parseInt(dataDiv[1]));
-			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
-			st.setInt(4, Integer.parseInt(dataDiv[0]));
+			st.setString(1, dataDiv[1]);
+			st.setString(2, dataDiv[0]);
+			st.setString(3, String.valueOf(Integer.parseInt(dataDiv[1]) - 1));
+			st.setString(4, dataDiv[0]);
 
 			rs = st.executeQuery();
 
@@ -188,12 +191,12 @@ public class ResumoDAO {
 			Database.finalizarResultSet(rs);
 
 			st = conn.prepareStatement("SELECT * FROM investimentos "
-					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
-			st.setInt(1, Integer.parseInt(dataDiv[1]));
-			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
-			st.setInt(4, Integer.parseInt(dataDiv[0]));
+					+ "WHERE (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) <= ? AND mensal > 0) OR "
+					+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
+			st.setString(1, dataDiv[1]);
+			st.setString(2, dataDiv[0]);
+			st.setString(3, String.valueOf(Integer.parseInt(dataDiv[1]) - 1));
+			st.setString(4, dataDiv[0]);
 
 			rs = st.executeQuery();
 
@@ -207,12 +210,12 @@ public class ResumoDAO {
 			Database.finalizarResultSet(rs);
 
 			st = conn.prepareStatement("SELECT * FROM fundo "
-					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
-			st.setInt(1, Integer.parseInt(dataDiv[1]));
-			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
-			st.setInt(4, Integer.parseInt(dataDiv[0]));
+					+ "WHERE (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) <= ? AND mensal > 0) OR "
+					+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
+			st.setString(1, dataDiv[1]);
+			st.setString(2, dataDiv[0]);
+			st.setString(3, String.valueOf(Integer.parseInt(dataDiv[1]) - 1));
+			st.setString(4, dataDiv[0]);
 
 			rs = st.executeQuery();
 
@@ -226,12 +229,12 @@ public class ResumoDAO {
 			Database.finalizarResultSet(rs);
 
 			st = conn.prepareStatement("SELECT * FROM despesas "
-					+ "WHERE (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) <= ? AND mensal > 0) "
-					+ "OR (YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
-			st.setInt(1, Integer.parseInt(dataDiv[1]));
-			st.setInt(2, Integer.parseInt(dataDiv[0]));
-			st.setInt(3, (Integer.parseInt(dataDiv[1])) - 1);
-			st.setInt(4, Integer.parseInt(dataDiv[0]));
+					+ "WHERE (SUBSTRING(data, 4, 7) = ? AND SUBSTRING(data, 1, 2) <= ? AND mensal > 0) OR "
+					+ "(YEAR(STR_TO_DATE(data, '%m/%Y')) = ? AND MONTH(STR_TO_DATE(data, '%m/%Y')) > ? AND mensal > 0)");
+			st.setString(1, dataDiv[1]);
+			st.setString(2, dataDiv[0]);
+			st.setString(3, String.valueOf(Integer.parseInt(dataDiv[1]) - 1));
+			st.setString(4, dataDiv[0]);
 
 			rs = st.executeQuery();
 
