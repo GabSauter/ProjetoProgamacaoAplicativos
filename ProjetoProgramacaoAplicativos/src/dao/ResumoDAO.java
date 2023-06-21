@@ -53,9 +53,9 @@ public class ResumoDAO {
 
 				if (rs.getDouble("mensal") > 0) {
 					if (Integer.parseInt(dataDiv[1]) == Integer.parseInt(data))
-						rendimentoMensal += (rs.getDouble("mensal") * (13 - Double.parseDouble(dataDiv[0])));
+						rendimentoMensal += (rs.getDouble("mensal") * (13 - Integer.parseInt(dataDiv[0])));
 					else
-						rendimentoMensal += (rs.getDouble("mensal") * (Double.parseDouble(dataDiv[0]) - 1));
+						rendimentoMensal += (rs.getDouble("mensal") * (Integer.parseInt(dataDiv[0]) - 1));
 				} else
 					rendimentoOcasional += rs.getDouble("ocasional");
 			}
@@ -81,9 +81,9 @@ public class ResumoDAO {
 
 				if (rs.getDouble("mensal") > 0) {
 					if (Integer.parseInt(dataDiv[1]) == Integer.parseInt(data))
-						investimentoMensal += (rs.getDouble("mensal") * (13 - Double.parseDouble(dataDiv[0])));
+						investimentoMensal += (rs.getDouble("mensal") * (13 - Integer.parseInt(dataDiv[0])));
 					else
-						investimentoMensal += (rs.getDouble("mensal") * (Double.parseDouble(dataDiv[0]) - 1));
+						investimentoMensal += (rs.getDouble("mensal") * (Integer.parseInt(dataDiv[0]) - 1));
 				} else
 					investimentoOcasional += rs.getDouble("ocasional");
 			}
@@ -109,9 +109,9 @@ public class ResumoDAO {
 
 				if (rs.getDouble("mensal") > 0) {
 					if (Integer.parseInt(dataDiv[1]) == Integer.parseInt(data))
-						fundoMensal += (rs.getDouble("mensal") * (13 - Double.parseDouble(dataDiv[0])));
+						fundoMensal += (rs.getDouble("mensal") * (13 - Integer.parseInt(dataDiv[0])));
 					else
-						fundoMensal += (rs.getDouble("mensal") * (Double.parseDouble(dataDiv[0]) - 1));
+						fundoMensal += (rs.getDouble("mensal") * (Integer.parseInt(dataDiv[0]) - 1));
 				} else
 					fundoOcasional += rs.getDouble("ocasional");
 			}
@@ -134,9 +134,9 @@ public class ResumoDAO {
 
 				if (rs.getDouble("mensal") > 0) {
 					if (Integer.parseInt(dataDiv[1]) == Integer.parseInt(data))
-						despesaMensal += (rs.getDouble("mensal") * (13 - Double.parseDouble(dataDiv[0])));
+						despesaMensal += (rs.getDouble("mensal") * (13 - Integer.parseInt(dataDiv[0])));
 					else
-						despesaMensal += (rs.getDouble("mensal") * (Double.parseDouble(dataDiv[0]) - 1));
+						despesaMensal += (rs.getDouble("mensal") * (Integer.parseInt(dataDiv[0]) - 1));
 				} else
 					despesaOcasional += rs.getDouble("ocasional");
 			}
