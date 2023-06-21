@@ -31,6 +31,10 @@ public class CategoriaWindow extends JFrame {
 	private JComboBox<Categoria> cbCategoria;
 
 	private List<Categoria> categorias;
+	private JLabel lblNome;
+	private JLabel lblCategoriasCadastradas;
+	private JLabel lblCadastrarOuEditar;
+	private JPanel contentPane;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -55,13 +59,13 @@ public class CategoriaWindow extends JFrame {
 		setBounds(100, 100, 428, 217);
 		setResizable(false);
 
-		JPanel contentPane = new JPanel();
+		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JLabel lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
+		lblCadastrarOuEditar = new JLabel("Cadastrar ou editar Categorias");
 		lblCadastrarOuEditar.setBounds(12, 20, 255, 15);
 		contentPane.add(lblCadastrarOuEditar);
 
@@ -69,7 +73,7 @@ public class CategoriaWindow extends JFrame {
 		cbCategoria.setBounds(195, 47, 209, 19);
 		contentPane.add(cbCategoria);
 
-		JLabel lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
+		lblCategoriasCadastradas = new JLabel("Categorias cadastradas");
 		lblCategoriasCadastradas.setBounds(12, 47, 177, 15);
 		contentPane.add(lblCategoriasCadastradas);
 
@@ -78,7 +82,7 @@ public class CategoriaWindow extends JFrame {
 		contentPane.add(txtFieldNome);
 		txtFieldNome.setColumns(10);
 
-		JLabel lblNome = new JLabel("Nome:");
+		lblNome = new JLabel("Nome:");
 		lblNome.setBounds(137, 80, 52, 15);
 		contentPane.add(lblNome);
 

@@ -51,6 +51,13 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 	
 	private JFormattedTextField txtData;
 	private MaskFormatter mascaraData;
+	private JScrollPane scrollPane;
+	private JPanel panelInvestimento;
+	private JLabel lblDatammaaaa;
+	private JPanel panelTipoInvestimento;
+	private JLabel lblValor;
+	private JLabel lblInvestimento;
+	private JPanel panelCadastro;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -75,7 +82,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 
-		JPanel panelCadastro = new JPanel();
+		panelCadastro = new JPanel();
 		panelCadastro.setBorder(
 				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar  investimento a longo prazo",
 						TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -83,7 +90,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		panelCadastro.setBounds(10, 12, 548, 145);
 		getContentPane().add(panelCadastro);
 
-		JLabel lblInvestimento = new JLabel("Investimento:");
+		lblInvestimento = new JLabel("Investimento:");
 		lblInvestimento.setBounds(12, 28, 99, 14);
 		panelCadastro.add(lblInvestimento);
 
@@ -110,7 +117,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		btnLimparCampos.setBounds(386, 110, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		JLabel lblValor = new JLabel("Valor:");
+		lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 54, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -119,7 +126,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		txtValor.setBounds(109, 52, 150, 20);
 		panelCadastro.add(txtValor);
 
-		JPanel panelTipoInvestimento = new JPanel();
+		panelTipoInvestimento = new JPanel();
 
 		panelTipoInvestimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
 				"Tipo de Investimento", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -147,7 +154,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		rdbtnMensal.setBounds(136, 19, 89, 23);
 		panelTipoInvestimento.add(rdbtnMensal);
 
-		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(269, 54, 117, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -156,7 +163,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		panelCadastro.add(txtData);
 		txtData.setColumns(10);
 
-		JPanel panelInvestimento = new JPanel();
+		panelInvestimento = new JPanel();
 		panelInvestimento.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)),
 				"Investimentos Cadastrados", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelInvestimento.setBounds(10, 169, 548, 186);
@@ -181,7 +188,7 @@ public class InvestimentoLongoPrazoWindow extends JFrame {
 		btnExcluirInvestimento.setBounds(438, 162, 100, 23);
 		panelInvestimento.add(btnExcluirInvestimento);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelInvestimento.add(scrollPane);
 

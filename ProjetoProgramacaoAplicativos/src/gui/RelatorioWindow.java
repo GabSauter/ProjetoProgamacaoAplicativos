@@ -52,6 +52,8 @@ public class RelatorioWindow extends JFrame {
 
 	private JFormattedTextField txtFieldData;
 	private MaskFormatter mascaraData;
+	private JLabel lblData;
+	private JPanel panel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -78,7 +80,7 @@ public class RelatorioWindow extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(0, 0, 434, 261);
 		getContentPane().add(panel);
 		panel.setLayout(null);
@@ -118,7 +120,7 @@ public class RelatorioWindow extends JFrame {
 		txtFieldData.setBounds(195, 12, 93, 20);
 		panel.add(txtFieldData);
 
-		JLabel lblData = new JLabel("Ano:");
+		lblData = new JLabel("Ano:");
 		lblData.setBounds(166, 15, 46, 14);
 		panel.add(lblData);
 	}

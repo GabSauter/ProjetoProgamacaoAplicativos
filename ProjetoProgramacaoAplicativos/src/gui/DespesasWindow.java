@@ -57,6 +57,14 @@ public class DespesasWindow extends JFrame {
 
 	private List<Despesa> despesas;
 	private List<Categoria> categorias;
+	private JScrollPane scrollPane;
+	private JPanel panelDespesas;
+	private JLabel lblDatammaaaa;
+	private JPanel panelTipoDespesa;
+	private JLabel lblValor;
+	private JLabel lblCategoria;
+	private JLabel lblDespesa;
+	private JPanel panelCadastro;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
@@ -83,14 +91,14 @@ public class DespesasWindow extends JFrame {
 		getContentPane().setLayout(null);
 		setResizable(false);
 
-		JPanel panelCadastro = new JPanel();
+		panelCadastro = new JPanel();
 		panelCadastro.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Cadastrar despesas",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelCadastro.setLayout(null);
 		panelCadastro.setBounds(10, 12, 548, 171);
 		getContentPane().add(panelCadastro);
 
-		JLabel lblDespesa = new JLabel("Despesa:");
+		lblDespesa = new JLabel("Despesa:");
 		lblDespesa.setBounds(12, 53, 99, 14);
 		panelCadastro.add(lblDespesa);
 
@@ -117,7 +125,7 @@ public class DespesasWindow extends JFrame {
 		btnLimparCampos.setBounds(386, 135, 150, 23);
 		panelCadastro.add(btnLimparCampos);
 
-		JLabel lblCategoria = new JLabel("Categoria");
+		lblCategoria = new JLabel("Categoria");
 		lblCategoria.setBounds(12, 26, 87, 15);
 		panelCadastro.add(lblCategoria);
 
@@ -135,7 +143,7 @@ public class DespesasWindow extends JFrame {
 		btnAddCategoria.setBounds(269, 21, 44, 20);
 		panelCadastro.add(btnAddCategoria);
 
-		JLabel lblValor = new JLabel("Valor:");
+		lblValor = new JLabel("Valor:");
 		lblValor.setBounds(12, 79, 70, 15);
 		panelCadastro.add(lblValor);
 
@@ -144,7 +152,7 @@ public class DespesasWindow extends JFrame {
 		txtValor.setBounds(109, 77, 150, 20);
 		panelCadastro.add(txtValor);
 
-		JPanel panelTipoDespesa = new JPanel();
+		panelTipoDespesa = new JPanel();
 
 		panelTipoDespesa.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Tipo de despesa",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
@@ -161,7 +169,7 @@ public class DespesasWindow extends JFrame {
 		rdbtnMensal.setBounds(136, 19, 89, 23);
 		panelTipoDespesa.add(rdbtnMensal);
 
-		JLabel lblDatammaaaa = new JLabel("Data (MM/AAAA):");
+		lblDatammaaaa = new JLabel("Data (MM/AAAA):");
 		lblDatammaaaa.setBounds(277, 79, 117, 15);
 		panelCadastro.add(lblDatammaaaa);
 
@@ -185,7 +193,7 @@ public class DespesasWindow extends JFrame {
 			}
 		});
 
-		JPanel panelDespesas = new JPanel();
+		panelDespesas = new JPanel();
 		panelDespesas.setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Despesas cadastradas",
 				TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51)));
 		panelDespesas.setBounds(10, 188, 548, 197);
@@ -210,7 +218,7 @@ public class DespesasWindow extends JFrame {
 		btnExcluirDespesa.setBounds(438, 162, 100, 23);
 		panelDespesas.add(btnExcluirDespesa);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 14, 526, 136);
 		panelDespesas.add(scrollPane);
 
